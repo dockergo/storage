@@ -63,4 +63,4 @@
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
 * [__Ceph__](http://docs.ceph.com/docs/master/)
 
-<font color="White"><h4 align = "center">©2016 wps.cn</h4></font>
+<font color="White"><h4 align = "center">©2016 flyaways</h4></font>
