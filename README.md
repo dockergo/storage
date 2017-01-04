@@ -6,9 +6,9 @@
 ## __<font color="Crimson">1. Build workspace</font>__
 
 ```sh
- mkdir -p $GOPATH/src/wpsep.net
- cd $GOPATH/src/wpsep.net
- git clone http://wpsgit.kingsoft.net/enterprisewps/storage-agent.git
+ mkdir -p $GOPATH/src/github.com
+ cd $GOPATH/src/github.com
+ git clone  https://github.com/flyaways/storage.git
 ```
 
 ## __<font color="Gold">2. Go vendor tool</font>__
