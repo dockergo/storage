@@ -1,0 +1,54 @@
+[http]
+http_addr = "HTTP_ADDR"
+scheme = "HTTP_SCHEME"
+
+[init]
+uploaddir="/wpsep/agent/emptyfile"
+buckets = [
+"wpsfile",
+"bk0wpsfile",
+"bk1wpsfile",
+"bk4wpsfile",
+"bk5wpsfile",
+]
+
+[logs]
+access_log = LOGS_ACCESS
+path = "LOGS_PATH"
+level = "LOGS_LEVEL"
+
+[credential]
+accesskey = "AUTH_ACCESSKEY"
+secketkey = "AUTH_SECRETKEY"
+
+[storage]
+type = "STORAGE_TYPE"
+
+[storage.swift]
+addr = "SWIFT_ADDR"
+authurl="SWIFT_AUTHURL"
+tenantname="SWIFT_TENANTNAME"
+username="SWIFT_USERNAME"
+projname="SWIFT_PROJNAME"
+password="SWIFT_PASSWORD"
+
+[storage.kdfs]
+account = "KDFS_ACCOUNT"
+addr = "KDFS_ADDR"
+
+[storage.s3]
+addr = "S3_ADDR"
+accesskey = "S3_ACCESSKEY"
+secretkey = "S3_SECRETKEY"
+
+[storage.ceph]
+addr = "CEPH_ADDR"
+accesskey = "CEPH_ACCESSKEY"
+secretkey = "CEPH_SECRETKEY"
+
+[storage.posix]
+addr = "POSIX_LOCAL_PATH"
+
+[storage.nfs]
+addr = "NFS_LOCAL_PATH"
+remote_addr = "NFS_REMOTE_ADDR"

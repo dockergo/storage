@@ -1,0 +1,54 @@
+[http]
+http_addr = ":20808"
+scheme = "http"
+
+[init]
+uploaddir="/wpsep/agent/emptyfile"
+buckets = [
+"wpsfile",
+"bk0wpsfile",
+"bk1wpsfile",
+"bk4wpsfile",
+"bk5wpsfile",
+]
+
+[logs]
+access_log = false
+path = ""
+level = "trace"
+
+[credential]
+accesskey = "1GL02rRYQxK8s7FQh8dV"
+secketkey = "2IDjaPOpFfkq5Zf9K4tKu8k5AKApY8S8eKV1zsRl"
+
+[storage]
+type = "ceph"
+
+[storage.swift]
+addr = "http://192.168.20.6/v1"
+authurl="http://192.168.20.6:5000/v3/auth/tokens"
+tenantname="test"
+username="wps"
+projname="wps"
+password="12345"
+
+[storage.kdfs]
+account = "kso"
+addr = "http://192.168.1.106:8088"
+
+[storage.ceph]
+addr = "http://192.168.20.4:8888"
+accesskey = "CUPQ9OHNSEQ6KYDLYNK2"
+secretkey = "jmgkfRgE2IkgKH9gmOoboOanID7SNHQ2yNRHw6GF"
+
+[storage.s3]
+addr = "http://192.168.20.4:8888"
+accesskey = "CUPQ9OHNSEQ6KYDLYNK2"
+secretkey = "jmgkfRgE2IkgKH9gmOoboOanID7SNHQ2yNRHw6GF"
+
+[storage.posix]
+addr = "/tmp/posix"
+
+[storage.nfs]
+addr = "/data"
+remote_addr = "192.168.158.64:/data"
