@@ -51,15 +51,7 @@
  ./bin/api_test
  ```
 
-## __<font color="LawnGreen">6. The way of creating filename by bucket name</font>__
-
->__<font color="Black">The bucket name of Consistency Create:</font>__ &nbsp;
- __<font color="Green">CONSISTENCY-BucketStrings</font>__
-
->__<font color="Black">The bucket name of not Consistency Create:</font>__ &nbsp;
- __<font color="Green">BucketStrings</font>__
-
-## __<font color="VioletRed">7. References</font>__
+## __<font color="VioletRed">6. References</font>__
 
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
 * [__Ceph__](http://docs.ceph.com/docs/master/)
