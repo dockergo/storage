@@ -50,6 +50,7 @@
  cd $GOPATH/src/github.com/flyaways/storage
  ./bin/api_test
  ```
+ 
 ## __<font color="LawnGreen">6. The way of creating filename by bucket name</font>__
 
 >__<font color="White">The bucket name of Consistency Create:</font>__ &nbsp;
