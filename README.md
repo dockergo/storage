@@ -1,4 +1,4 @@
-# __<font color=#0077dd >Storage Agent</font>__
+# __Storage Agent__
 
 >__<font color="Black">Supported Type: </font>__&nbsp;
  __<font color="Green">S3,Swift,Posix,NFS,Kdfs etc.</font>__
