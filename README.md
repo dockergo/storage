@@ -44,7 +44,7 @@
  ```
 
 >__<font color="Black">Object Method:</font>__&nbsp;
- __<font color="Green">PUT, GET, HEAD, DELETE</font>__
+ __<font color="Green">PUT, POST, GET, HEAD, DELETE</font>__
 
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
