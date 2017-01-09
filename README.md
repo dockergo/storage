@@ -2,6 +2,10 @@
 
 ![Alt text](anonymous.jpg)
 
+> Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
+>
+> Shortcuts (emoticons): :-) :-( 8-) ;)
+
 ><font color="Black">Supported Type: </font>&nbsp;
  __<font color="Green">S3,Swift,Posix,NFS,Kdfs etc.</font>__
 
