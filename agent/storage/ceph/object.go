@@ -11,7 +11,7 @@ import (
 	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
 	"github.com/gin-gonic/gin"
-	"github.com/goamz/goamz/s3"
+	"github.com/mitchellh/goamz/s3"
 )
 
 func (c *Ceph) PutObject(ctx *gin.Context) {
@@ -44,7 +44,7 @@ func (c *Ceph) PostObject(ctx *gin.Context) {
 
 func (c *Ceph) uploadObject(ctx *gin.Context, res *result.Result, rawRequestdata []byte, finalkey, bucket string) {
 	v := ctx.Request.Header.Get(constant.ContentType)
-	err := c.client.Bucket(bucket).Put(finalkey, rawRequestdata, v, s3.PublicReadWrite, s3.Options{})
+	err := c.client.Bucket(bucket).Put(finalkey, rawRequestdata, v, s3.PublicReadWrite)
 	if err != nil {
 		log.Error("[%s:%s]", c.Name, err.Error())
 		res.Error(err)
@@ -79,7 +79,7 @@ func (c *Ceph) HeadObject(ctx *gin.Context) {
 		return
 	}
 
-	resp, err := c.client.Bucket(bucket).Head(key, ctx.Request.Header)
+	resp, err := c.client.Bucket(bucket).Head(key)
 	if err != nil {
 		log.Error("[%s:%s]", c.Name, err.Error())
 		res.Error(err)

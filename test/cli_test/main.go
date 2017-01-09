@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
-	"github.com/Flyaways/tracker"
+
 	test "github.com/flyaways/storage/test/api"
+	"github.com/flyaways/tracker"
 )
 
 func RuningCLI() {
@@ -12,8 +13,10 @@ func RuningCLI() {
 
 	if *test.Types == "bucket" {
 		test.Bucket(*test.Method)
-	} else {
+	} else if *test.Types == "object" {
 		test.MatchObject(*test.Method)
+	} else {
+		test.Service("GET")
 	}
 }
 

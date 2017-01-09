@@ -1,7 +1,7 @@
 package agent
 
 import (
-	"github.com/Flyaways/tracker"
+	"github.com/flyaways/tracker"
 	"github.com/gin-gonic/gin"
 
 	"github.com/flyaways/storage/agent/app"

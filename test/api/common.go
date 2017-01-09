@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Flyaways/tracker"
+	"github.com/flyaways/tracker"
 )
 
 func DoRequest(httpReq *http.Request) {
@@ -49,7 +49,7 @@ func DoRequest(httpReq *http.Request) {
 
 	fmt.Printf("response-----Newfilename:  %s\n", tracker.Red(*newName))
 	lens := fmt.Sprintf("%d", len(body))
-	fmt.Printf("response-----body:   %s, %s\n", tracker.Yellow(string(body)), tracker.Magenta(lens))
+	fmt.Printf("response-----body:\n%s, %s\n", tracker.Yellow(string(body)), tracker.Magenta(lens))
 	if err != nil {
 		fmt.Printf("\n%s\n", err.Error())
 		panic(err)

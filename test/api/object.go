@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Flyaways/tracker"
+	"github.com/flyaways/tracker"
 )
 
 func ObjectPost() {

@@ -6,8 +6,36 @@ import (
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/util/log"
 	"github.com/gin-gonic/gin"
-	"github.com/goamz/goamz/s3"
+	"github.com/mitchellh/goamz/s3"
 )
+
+func (c *Ceph) GetBucket(ctx *gin.Context) {
+	resp, err := c.client.ListBuckets()
+	if err != nil {
+		log.Error("[listbucket:%s]", err.Error())
+	}
+
+	_, bkt := protocol.GetParamBucket(ctx)
+	if len(bkt) == 0 {
+		return
+	}
+
+	for _, bucket := range resp.Buckets {
+		if bkt == bucket.Name {
+			keys, err := bucket.GetBucketContents()
+			if err == nil {
+				for _, key := range *keys {
+					ctx.JSON(http.StatusOK, gin.H{"Key": key.Key,
+						"LastModified": key.LastModified,
+						"Size":         key.Size})
+				}
+			} else {
+				log.Error("[%s]", err.Error())
+			}
+		}
+	}
+	ctx.Status(http.StatusOK)
+}
 
 func (c *Ceph) PutBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
@@ -30,7 +58,7 @@ func (c *Ceph) HeadBucket(ctx *gin.Context) {
 		return
 	}
 
-	resp, err := c.client.Bucket(bucket).Head("/", ctx.Request.Header)
+	resp, err := c.client.Bucket(bucket).Head("/")
 	if err != nil {
 		log.Error("[%s:%s]", c.Name, err.Error())
 		res.Error(err)

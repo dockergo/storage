@@ -1,4 +1,4 @@
-# Storage Agent
+# __Storage Agent__
 
 >__<font color="Black">Supported Type: </font>__&nbsp;
  __<font color="Green">S3,Swift,Posix,NFS,Kdfs etc.</font>__
@@ -35,26 +35,21 @@
 
 ## __<font color="Chocolate">5. Test all of agent interface</font>__
 
-
 >__<font color="Black">Bucket Method:</font>__ &nbsp;
  __<font color="Green">PUT, HEAD, DELETE</font>__
 
-
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
  ./bin/api_test
  ```
-
 
 >__<font color="Black">Object Method:</font>__&nbsp;
- __<font color="Green">PUT, POST, GET, HEAD, DELETE</font>__
-
+ __<font color="Green">PUT, GET, HEAD, DELETE</font>__
 
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
  ./bin/api_test
  ```
-
 
 ## __<font color="VioletRed">6. References</font>__
 
@@ -62,3 +57,5 @@
 * [__Ceph__](http://docs.ceph.com/docs/master/)
 
 <font color="Black"><h4 align = "center">©2016 flyaways</h4></font>
+
+echo `ifconfig $(netstat -nr | grep -e default -e "^0\.0\.0\.0" | head -1 | awk '{print $NF}') | grep -e "inet " | sed -e 's/.*inet //' -e 's/ .*//' -e 's/.*\://'`

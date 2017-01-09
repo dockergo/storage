@@ -5,14 +5,18 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Flyaways/tracker"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/flyaways/tracker"
 )
 
 type InitData struct {
 	Bucket  string
 	Key     string
 	RawData []byte
+}
+
+type Services interface {
+	Service(ctx *gin.Context)
 }
 
 type Objecter interface {
@@ -25,6 +29,7 @@ type Objecter interface {
 }
 
 type Bucketer interface {
+	GetBucket(ctx *gin.Context)
 	PutBucket(ctx *gin.Context)
 	HeadBucket(ctx *gin.Context)
 	DeleteBucket(ctx *gin.Context)
@@ -37,6 +42,7 @@ type InitAgent interface {
 }
 
 type Storager interface {
+	Services
 	Objecter
 	Bucketer
 	InitAgent

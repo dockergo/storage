@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Flyaways/tracker"
+	"github.com/flyaways/tracker"
 )
 
 func Bucket(method string) {
@@ -18,6 +18,24 @@ func Bucket(method string) {
 		"",
 		expiresTime,
 		"/"+*bucketName, *secretKey, map[string]string{})
+
+	autoString := fmt.Sprintf("KSS %s:%s", *accessKey, sign)
+	httpReq.Header["authorization"] = []string{autoString}
+
+	DoRequest(httpReq)
+}
+
+func Service(method string) {
+	urlStr := fmt.Sprintf("http://%s/", *addr)
+	expiresTime := GetDate()
+	httpReq, _ := http.NewRequest(method, urlStr, nil)
+	httpReq.Header.Add("date", expiresTime)
+	fmt.Printf("\nBUCKET--%s----: %s\n", method, tracker.Blue(urlStr))
+	sign := DoSignature(method,
+		"",
+		"",
+		expiresTime,
+		"/", *secretKey, map[string]string{})
 
 	autoString := fmt.Sprintf("KSS %s:%s", *accessKey, sign)
 	httpReq.Header["authorization"] = []string{autoString}

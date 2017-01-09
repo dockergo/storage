@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Flyaways/tracker"
 	"github.com/flyaways/storage/agent/app"
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/constant"
 	"github.com/flyaways/storage/agent/storage/adapter"
 	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/flyaways/tracker"
 )
 
 func StorageInit(app *app.App) {
@@ -71,7 +71,7 @@ func initObject(Storage adapter.Storager, cfg *config.Config) {
 			data.Bucket = bucket
 			Storage.InitObject(&data)
 
-			log.Info("[%s\t%s\t%s]", tracker.Blue(bucket), tracker.Green("<=======>"), filepath.Base(finalkey))
+			log.Info("[%19s]%s%-32s", tracker.Blue(bucket), tracker.Green(" <=======> "), filepath.Base(finalkey))
 
 		}
 	}
