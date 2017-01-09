@@ -12,7 +12,7 @@ func Bucket(method string) {
 	expiresTime := GetDate()
 	httpReq, _ := http.NewRequest(method, urlStr, nil)
 	httpReq.Header.Add("date", expiresTime)
-	fmt.Printf("\nBUCKET--%s----: %s\n", method, tracker.Blue(urlStr))
+	fmt.Printf("\n[BUCKET-%s-URL:\t%26s]\n", method, tracker.Blue(urlStr))
 	sign := DoSignature(method,
 		"",
 		"",
@@ -30,7 +30,7 @@ func Service(method string) {
 	expiresTime := GetDate()
 	httpReq, _ := http.NewRequest(method, urlStr, nil)
 	httpReq.Header.Add("date", expiresTime)
-	fmt.Printf("\nBUCKET--%s----: %s\n", method, tracker.Blue(urlStr))
+	fmt.Printf("\n[SERVICE-%s-URL:\t%26s]\n", method, tracker.Blue(urlStr))
 	sign := DoSignature(method,
 		"",
 		"",

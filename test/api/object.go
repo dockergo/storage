@@ -16,7 +16,7 @@ import (
 func ObjectPost() {
 	urlStr := fmt.Sprintf("http://%s/%s", *addr, *bucketName)
 
-	fmt.Printf("\nOBJECT--POST----: %s\n", tracker.Blue(urlStr))
+	fmt.Printf("\n[OBJECT-POST-URL:\t%26s]\n", tracker.Blue(urlStr))
 	policy := &Policy{
 		Expiration: time.Unix(time.Now().Add(time.Minute*30).Unix(), 0).UTC().Format("2006-01-02T15:04:05.000Z"),
 		Conditions: map[string]string{
@@ -61,7 +61,7 @@ func ObjectPut() {
 	expiresTime := GetDate()
 	contentType := "application/octet-stream"
 
-	fmt.Printf("\nOBJECT--PUT----: %s\n", tracker.Blue(urlStr))
+	fmt.Printf("\n[OBJECT-PUT-URL:\t%26s]\n", tracker.Blue(urlStr))
 	httpReq, _ := http.NewRequest("PUT", urlStr, strings.NewReader(*content))
 	httpReq.Header.Add("Content-Type", contentType)
 	httpReq.Header.Add("date", expiresTime)
@@ -82,7 +82,7 @@ func Object(method, key string) {
 	urlStr := fmt.Sprintf("http://%s/%s/%s", *addr, *bucketName, key)
 	expiresTime := GetExpireTime()
 
-	fmt.Printf("\nOBJECT--%s----: %s\n", method, tracker.Blue(urlStr))
+	fmt.Printf("\n[OBJECT-%s-URL:\t%26s]\n", method, tracker.Blue(urlStr))
 
 	var body io.Reader
 	body = nil
