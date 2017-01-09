@@ -1,9 +1,6 @@
 # Storage
 
-<div align=center>
-
 ![Alt text](anonymous.jpg)
-</div>
 
 ><font color="Black">Supported Type: </font>&nbsp;
  __<font color="Green">S3,Swift,Posix,NFS,Kdfs etc.</font>__
