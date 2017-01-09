@@ -33,23 +33,29 @@
  ./bin/agent
 ```
 
+
 ## __<font color="Chocolate">5. Test all of agent interface</font>__
+
 
 >__<font color="Black">Bucket Method:</font>__ &nbsp;
  __<font color="Green">PUT, HEAD, DELETE</font>__
 
+
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
  ./bin/api_test
  ```
+
 
 >__<font color="Black">Object Method:</font>__&nbsp;
  __<font color="Green">PUT, GET, HEAD, DELETE</font>__
 
+
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
  ./bin/api_test
  ```
+
 
 ## __<font color="VioletRed">6. References</font>__
 
