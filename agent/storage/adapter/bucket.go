@@ -28,5 +28,6 @@ func (s *StorageAdapter) DeleteBucket(ctx *gin.Context) {
 }
 
 func (s *StorageAdapter) OptionsBucket(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{"Supported": "GET,PUT,HEAD,DELETE,OPTIONS"})
 	ctx.Status(http.StatusOK)
 }

@@ -29,5 +29,6 @@ func (s *StorageAdapter) DeleteObject(ctx *gin.Context) {
 }
 
 func (s *StorageAdapter) OptionsObject(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{"Supported": "GET,PUT,POST,HEAD,DELETE,OPTIONS"})
 	ctx.Status(http.StatusOK)
 }
