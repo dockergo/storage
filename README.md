@@ -57,3 +57,5 @@
 * [__Ceph__](http://docs.ceph.com/docs/master/)
 
 <font color="Black"><h4 align = "center">©2016 flyaways</h4></font>
+
+echo `ifconfig $(netstat -nr | grep -e default -e "^0\.0\.0\.0" | head -1 | awk '{print $NF}') | grep -e "inet " | sed -e 's/.*inet //' -e 's/ .*//' -e 's/.*\://'`

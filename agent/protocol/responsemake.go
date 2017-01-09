@@ -1,8 +1,8 @@
 package protocol
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/constant"
+	"github.com/gin-gonic/gin"
 )
 
 func responseMake(ctx *gin.Context) {

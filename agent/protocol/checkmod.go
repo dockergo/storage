@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/constant"
+	"github.com/gin-gonic/gin"
 )
 
 func CheckModSince(ctx *gin.Context, modtime time.Time) (bool, error) {

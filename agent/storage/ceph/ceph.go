@@ -3,10 +3,11 @@ package ceph
 import (
 	"time"
 
-	"github.com/goamz/goamz/aws"
-	"github.com/goamz/goamz/s3"
-	"github.com/flyaways/storage/agent/config"
+	"wpsep.net/storage-agent/agent/config"
+
 	"github.com/flyaways/storage/agent/storage/adapter"
+	"github.com/mitchellh/goamz/aws"
+	"github.com/mitchellh/goamz/s3"
 )
 
 type Ceph struct {

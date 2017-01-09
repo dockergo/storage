@@ -3,11 +3,11 @@ package agent
 import (
 	"net/http"
 
+	"github.com/flyaways/storage/agent/app"
+	"github.com/flyaways/storage/agent/middleware"
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	csrf "github.com/utrack/gin-csrf"
-	"github.com/flyaways/storage/agent/app"
-	"github.com/flyaways/storage/agent/middleware"
 )
 
 func RegisterURLs(app *app.App, router *gin.Engine) {
@@ -36,6 +36,7 @@ func RegisterURLs(app *app.App, router *gin.Engine) {
 
 	bucket := router.Group("/:bucket")
 	{
+		bucket.GET("", app.GetBucket)
 		bucket.PUT("", app.PutBucket)
 		bucket.HEAD("", app.HeadBucket)
 		bucket.DELETE("", app.DeleteBucket)
@@ -48,6 +49,10 @@ func RegisterURLs(app *app.App, router *gin.Engine) {
 		object.HEAD("/*key", app.HeadObject)
 		object.GET("/*key", app.GetObject)
 		object.DELETE("/*key", app.DeleteObject)
+	}
+	service := router.Group("/")
+	{
+		service.GET("", app.Service)
 	}
 
 }

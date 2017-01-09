@@ -3,8 +3,8 @@ package result
 import (
 	"bytes"
 	"encoding/xml"
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/errors"
+	"github.com/gin-gonic/gin"
 )
 
 type Result struct {

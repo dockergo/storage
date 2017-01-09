@@ -15,6 +15,10 @@ type InitData struct {
 	RawData []byte
 }
 
+type Services interface {
+	Service(ctx *gin.Context)
+}
+
 type Objecter interface {
 	PutObject(ctx *gin.Context)
 	PostObject(ctx *gin.Context)
@@ -25,6 +29,7 @@ type Objecter interface {
 }
 
 type Bucketer interface {
+	GetBucket(ctx *gin.Context)
 	PutBucket(ctx *gin.Context)
 	HeadBucket(ctx *gin.Context)
 	DeleteBucket(ctx *gin.Context)
@@ -37,6 +42,7 @@ type InitAgent interface {
 }
 
 type Storager interface {
+	Services
 	Objecter
 	Bucketer
 	InitAgent

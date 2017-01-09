@@ -3,9 +3,9 @@ package middleware
 import (
 	"time"
 
+	"github.com/flyaways/storage/agent/constant"
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
-	"github.com/flyaways/storage/agent/constant"
 )
 
 func RequestId() gin.HandlerFunc {

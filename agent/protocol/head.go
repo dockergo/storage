@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/constant"
 	errs "github.com/flyaways/storage/agent/errors"
 	"github.com/flyaways/storage/agent/result"
 	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 func PostHeadchecker(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {

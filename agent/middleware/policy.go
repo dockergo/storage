@@ -4,9 +4,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/constant"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 func Policy() gin.HandlerFunc {
