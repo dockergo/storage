@@ -12,7 +12,11 @@ func MatchObject(method string) {
 		ObjectPost()
 	case "HEAD":
 		Object(method, *newName)
+	case "OPTIONS":
+		Object(method, *newName)
+
 	default:
+
 		return
 	}
 }
