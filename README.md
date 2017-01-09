@@ -43,7 +43,8 @@
 
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
- ./bin/api_test
+ 
+ ./docker/bin/all_test
  ```
 
 
@@ -53,7 +54,8 @@
 
  ```sh
  cd $GOPATH/src/github.com/flyaways/storage
- ./bin/api_test
+ 
+ ./docker/bin/all_test
  ```
 
 
