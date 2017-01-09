@@ -38,7 +38,7 @@
 
 
 >__<font color="Black">Bucket Method:</font>__ &nbsp;
- __<font color="Green">PUT, HEAD, DELETE</font>__
+ __<font color="Green">PUT,GET, HEAD, DELETE</font>__
 
 
  ```sh
