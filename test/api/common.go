@@ -16,11 +16,6 @@ import (
 )
 
 func DoRequest(httpReq *http.Request) {
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Printf("\n%s\n", r)
-		}
-	}()
 	tr := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
 		Dial: (&net.Dialer{
@@ -37,24 +32,28 @@ func DoRequest(httpReq *http.Request) {
 	httpRep, err := client.Do(httpReq)
 	if err != nil {
 		fmt.Printf("\n%s\n", err.Error())
-		panic(err)
 	}
-	tmp := fmt.Sprintf("%d", httpRep.StatusCode)
-	fmt.Printf("response-----status:  %s\n", tracker.Red(tmp))
+
+	fmt.Printf("[%25s:\t%s]\n", tracker.Magenta("status"), tracker.Red("%d", httpRep.StatusCode))
+
 	body, err := ioutil.ReadAll(httpRep.Body)
+	if err != nil {
+		fmt.Printf("\n[%s]\n", tracker.Red(err.Error()))
+	}
 
 	if httpRep.Header.Get(Newfilename) != "" {
 		*newName = httpRep.Header.Get(Newfilename)
 	}
 
-	fmt.Printf("response-----Newfilename:  %s\n", tracker.Red(*newName))
-	lens := fmt.Sprintf("%d", len(body))
-	fmt.Printf("response-----body:\n%s, %s\n", tracker.Yellow(string(body)), tracker.Magenta(lens))
-	if err != nil {
-		fmt.Printf("\n%s\n", err.Error())
-		panic(err)
-	} else {
+	for key, value := range httpRep.Header {
+		for _, values := range value {
+			fmt.Printf("[%25s:\t%v]\n", tracker.Magenta(key), values)
+		}
 	}
+
+	fmt.Printf("[%25s:\t%s]\n", tracker.Magenta("bodySize"), fmt.Sprintf("%d", len(body)))
+	fmt.Printf("%25s:\n%s\n", tracker.Magenta("body"), tracker.Yellow(string(body)))
+
 }
 
 func DoSignature(HTTPVerb, ContentMD5, ContentType, Date, CanonicalizedResource, secretKey string,
