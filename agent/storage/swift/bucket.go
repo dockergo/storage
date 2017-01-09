@@ -5,8 +5,8 @@
 package swift
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/protocol"
+	"github.com/gin-gonic/gin"
 )
 
 func (swt *Swift) PutBucket(ctx *gin.Context) {

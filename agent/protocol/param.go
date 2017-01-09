@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/constant"
 	errs "github.com/flyaways/storage/agent/errors"
 	"github.com/flyaways/storage/agent/result"
 	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 //符合 DNS 标准的存储桶名称规则如下：

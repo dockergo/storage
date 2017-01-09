@@ -3,10 +3,10 @@ package ceph
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/goamz/goamz/s3"
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/gin-gonic/gin"
+	"github.com/goamz/goamz/s3"
 )
 
 func (c *Ceph) PutBucket(ctx *gin.Context) {

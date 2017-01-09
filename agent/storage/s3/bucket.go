@@ -5,9 +5,9 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 func (s *S3) PutBucket(ctx *gin.Context) {

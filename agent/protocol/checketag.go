@@ -3,8 +3,8 @@ package protocol
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/constant"
+	"github.com/gin-gonic/gin"
 )
 
 func CheckETag(ctx *gin.Context, etag string) bool {

@@ -71,7 +71,7 @@ func initObject(Storage adapter.Storager, cfg *config.Config) {
 			data.Bucket = bucket
 			Storage.InitObject(&data)
 
-			log.Info("[%19s]%s%-32s", tracker.Blue(bucket), tracker.Green(" <=======> "), filepath.Base(finalkey))
+			log.Info("[%s\t%s\t%s]", tracker.Blue(bucket), tracker.Green("<=======>"), filepath.Base(finalkey))
 
 		}
 	}

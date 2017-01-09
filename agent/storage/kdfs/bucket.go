@@ -1,8 +1,8 @@
 package kdfs
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/flyaways/storage/agent/protocol"
+	"github.com/gin-gonic/gin"
 )
 
 func (kfs *Kdfs) PutBucket(ctx *gin.Context) {

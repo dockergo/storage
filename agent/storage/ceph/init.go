@@ -1,9 +1,9 @@
 package ceph
 
 import (
-	"github.com/goamz/goamz/s3"
 	"github.com/flyaways/storage/agent/storage/adapter"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/goamz/goamz/s3"
 )
 
 func (c *Ceph) InitBucket(initdata *adapter.InitData) error {
