@@ -85,8 +85,6 @@ func (s *SignAuth) Auth(ctx *gin.Context) {
 				if base%constant.Auth == 1 && len(key) > 0 {
 					return
 				}
-			} else {
-				log.Warn("[strconv.ParseInt:%s]", err.Error())
 			}
 		}
 	}

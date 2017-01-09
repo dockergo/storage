@@ -6,33 +6,17 @@ import (
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/util/log"
 	"github.com/gin-gonic/gin"
-	"github.com/mitchellh/goamz/aws"
 	"github.com/mitchellh/goamz/s3"
 )
 
-func (c *ceph) GetBucket(*gin.context) {
-	auth, err := aws.GetAuth(c.config.Storage.Ceph.AccessKey,
-		c.onfig.Storage.Ceph.SecretKey)
-
+func (c *Ceph) GetBucket(ctx *gin.Context) {
+	resp, err := c.client.ListBuckets()
 	if err != nil {
-		log.Fatal(err)
+		log.Error("[listbucket:%s]", err.Error())
 	}
 
-	var cnc = aws.Region{
-		S3Endpoint:           c.config.Storage.Ceph.Addr,
-		S3BucketEndpoint:     "",
-		S3LocationConstraint: false,
-		S3LowercaseBucket:    false,
-	}
-
-	client := s3.New(auth, cnc)
-	resp, err := client.ListBuckets()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	res, bkt := protocol.GetParamBucket(ctx)
-	if len(bucket) == 0 {
+	_, bkt := protocol.GetParamBucket(ctx)
+	if len(bkt) == 0 {
 		return
 	}
 
@@ -41,16 +25,18 @@ func (c *ceph) GetBucket(*gin.context) {
 			keys, err := bucket.GetBucketContents()
 			if err == nil {
 				for _, key := range *keys {
-					c.XML(http.StatusOK, gin.H{"key": key.Key,
-						"Key":          key.Key,
+					ctx.JSON(http.StatusOK, gin.H{"Key": key.Key,
 						"LastModified": key.LastModified,
 						"Size":         key.Size})
 				}
+			} else {
+				log.Error("[%s]", err.Error())
 			}
 		}
 	}
 	ctx.Status(http.StatusOK)
 }
+
 func (c *Ceph) PutBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
@@ -72,7 +58,7 @@ func (c *Ceph) HeadBucket(ctx *gin.Context) {
 		return
 	}
 
-	resp, err := c.client.Bucket(bucket).Head("/", ctx.Request.Header)
+	resp, err := c.client.Bucket(bucket).Head("/")
 	if err != nil {
 		log.Error("[%s:%s]", c.Name, err.Error())
 		res.Error(err)

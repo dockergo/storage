@@ -55,11 +55,13 @@ func (posix *Posix) uploadObject(ctx *gin.Context, res *result.Result, rawReques
 		return
 	}
 
-	if err = posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
-		return
-	}
+	/***
+		if err = posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
+			log.Error("[%s:%s]", posix.Name, err.Error())
+			res.Error(err)
+			return
+		}
+	***/
 
 	filename := filepath.Join(posix.getBucketPath(bucket), finalkey)
 	if err := os.MkdirAll(filepath.Dir(filename), os.ModePerm); err != nil {
@@ -86,11 +88,14 @@ func (posix *Posix) GetObject(ctx *gin.Context) {
 		return
 	}
 
+	/***
 	if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
 		res.Error(err)
 		return
 	}
+	***/
+
 	filename := filepath.Join(posix.getBucketPath(bucket), key)
 	if err := posix.Checker.FileChecker(filename); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
@@ -114,11 +119,13 @@ func (posix *Posix) HeadObject(ctx *gin.Context) {
 		return
 	}
 
+	/***
 	if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
 		res.Error(err)
 		return
 	}
+	***/
 
 	filename := filepath.Join(posix.getBucketPath(bucket), key)
 	if err := posix.Checker.FileChecker(filename); err != nil {
@@ -159,11 +166,14 @@ func (posix *Posix) DeleteObject(ctx *gin.Context) {
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
-	if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
-		return
-	}
+
+	/***
+		if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
+			log.Error("[%s:%s]", posix.Name, err.Error())
+			res.Error(err)
+			return
+		}
+	***/
 
 	filename := filepath.Join(posix.getBucketPath(bucket), key)
 	if err := posix.Checker.FileChecker(filename); err != nil {

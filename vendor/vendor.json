@@ -9,12 +9,6 @@
 			"revisionTime": "2016-07-17T15:07:09Z"
 		},
 		{
-			"checksumSHA1": "sZpMQyKbBK7bx5THgGXcJsVJqSk=",
-			"path": "github.com/Flyaways/tracker",
-			"revision": "df572626954c8df7ad3c391ec13eef6eec0b02cd",
-			"revisionTime": "2016-11-03T08:27:48Z"
-		},
-		{
 			"checksumSHA1": "BbbMbpao2p7TGrAxHJvdZJ68xIU=",
 			"path": "github.com/aws/aws-sdk-go/aws",
 			"revision": "794fda00e282bfc6130f211b8dd39f14664db16f",
@@ -177,6 +171,12 @@
 			"revisionTime": "2016-02-12T16:43:26Z"
 		},
 		{
+			"checksumSHA1": "5Hdx79hnUGLmtohOLvn1YlMIOBo=",
+			"path": "github.com/flyaways/tracker",
+			"revision": "df572626954c8df7ad3c391ec13eef6eec0b02cd",
+			"revisionTime": "2016-11-03T08:27:48Z"
+		},
+		{
 			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
 			"path": "github.com/garyburd/redigo/internal",
 			"revision": "827b38687c49d680c6bd9ac6114111b98cc16cdf",
@@ -218,18 +218,6 @@
 			"path": "github.com/go-ini/ini",
 			"revision": "794fda00e282bfc6130f211b8dd39f14664db16f",
 			"revisionTime": "2017-01-03T17:46:05Z"
-		},
-		{
-			"checksumSHA1": "9HwBlV3wDKzGlnFGO7wa5hAPe5U=",
-			"path": "github.com/goamz/goamz/aws",
-			"revision": "b2c2eaf25cbb87f41087aa796facf82113809ed5",
-			"revisionTime": "2017-01-03T22:03:59Z"
-		},
-		{
-			"checksumSHA1": "hAxHwewBLl3xg9DFxWrz697htI8=",
-			"path": "github.com/goamz/goamz/s3",
-			"revision": "b2c2eaf25cbb87f41087aa796facf82113809ed5",
-			"revisionTime": "2017-01-03T22:03:59Z"
 		},
 		{
 			"checksumSHA1": "kBeNcaKk56FguvPSUCEaH6AxpRc=",

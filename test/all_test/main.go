@@ -2,17 +2,21 @@ package main
 
 import (
 	"flag"
-	"github.com/Flyaways/tracker"
+
 	test "github.com/flyaways/storage/test/api"
+	"github.com/flyaways/tracker"
 )
 
-var buketmethodlist = [...]string{0: "PUT", 1: "HEAD"}
+var buketmethodlist = [...]string{0: "PUT", 1: "HEAD", 2: "GET"}
 
 var objectmethodlist = [...]string{0: "PUT", 1: "GET", 2: "DELETE", 3: "POST", 4: "HEAD", 5: "DELETE"}
 
 func RuningOneKeyTest() {
 	flag.Parse()
 	test.TouchFile()
+
+	tracker.Tracker("notice", test.Common, "SERVICE TESTING BEGIN")
+	test.Service("GET")
 
 	tracker.Tracker("notice", test.Common, "BUCKET TESTING BEGIN")
 	for _, arg := range buketmethodlist {

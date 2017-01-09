@@ -1,8 +1,8 @@
 package adapter
 
 import (
-	"flyaway.com/gin"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/gin-gonic/gin"
 )
 
 func (s *StorageAdapter) Service(ctx *gin.Context) {

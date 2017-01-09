@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/Flyaways/tracker"
 	"github.com/flyaways/storage/agent/storage"
 	"github.com/flyaways/storage/agent/storage/adapter"
+	"github.com/flyaways/tracker"
 
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/util/log"
@@ -23,7 +23,7 @@ func NewApp(cfg *config.Config) (*App, error) {
 	app.Config = cfg
 	app.Storager, err = storage.NewStorage(cfg)
 	if err != nil {
-		log.Error("[NewStorage error:%s]", tracker.Red(err.Error()))
+		log.Error("[NewStorage:%s]", tracker.Red(err.Error()))
 		return nil, err
 	}
 

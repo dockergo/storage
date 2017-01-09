@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Flyaways/tracker"
 	"github.com/flyaways/storage/agent/app"
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/constant"
 	"github.com/flyaways/storage/agent/storage/adapter"
 	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/flyaways/tracker"
 )
 
 func StorageInit(app *app.App) {

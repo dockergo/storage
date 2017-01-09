@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Flyaways/tracker"
 	"github.com/flyaways/storage/agent/util/log"
+	"github.com/flyaways/tracker"
 )
 
 type InitData struct {

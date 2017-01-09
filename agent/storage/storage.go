@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Flyaways/tracker"
+	"github.com/flyaways/tracker"
 
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/storage/adapter"

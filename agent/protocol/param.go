@@ -45,11 +45,6 @@ func GetParamPost(ctx *gin.Context) (*result.Result, string, string) {
 func GetParamBucket(ctx *gin.Context) (*result.Result, string) {
 	bucket := ctx.Param("bucket")
 	res := result.NewResult(ctx)
-	if len(bucket) < 3 || len(bucket) > 63 {
-		log.Error("[%s]", bucket)
-		res.Error(errs.InvalidArgument)
-		return res, ""
-	}
 	return res, bucket
 }
 
