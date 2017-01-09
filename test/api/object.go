@@ -21,7 +21,7 @@ func ObjectPost() {
 		Expiration: time.Unix(time.Now().Add(time.Minute*30).Unix(), 0).UTC().Format("2006-01-02T15:04:05.000Z"),
 		Conditions: map[string]string{
 			"bucket": *bucketName,
-			"key":    *key,
+			"key":    *curfile,
 		}}
 	json := policy.Marshal()
 
@@ -36,7 +36,7 @@ func ObjectPost() {
 	}
 	defer f.Close()
 
-	w.WriteField("key", *key)
+	w.WriteField("key", *curfile)
 	w.WriteField("KSSAccessKeyId", *accessKey)
 	w.WriteField("Policy", string(Base64Encode(json)))
 	w.WriteField("Signature", signature)

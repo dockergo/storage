@@ -13,8 +13,9 @@ import (
 	"github.com/flyaways/storage/agent/util/log"
 )
 
-func walkDir(dirPth string) (files []os.FileInfo, err error) {
+func walkDir(dirPth string) (files []os.FileInfo, filenames []string, err error) {
 	files = make([]os.FileInfo, 0, 30)
+	filenames = make([]string, 0, 30)
 	err = filepath.Walk(dirPth, func(filename string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -22,11 +23,13 @@ func walkDir(dirPth string) (files []os.FileInfo, err error) {
 		if fi.IsDir() {
 			return nil
 		}
+		fi.Name()
 		files = append(files, fi)
+		filenames = append(filenames, filename)
 		return nil
 	})
 
-	return files, err
+	return files, filenames, err
 }
 
 func (posix *Posix) GetBucket(ctx *gin.Context) {
@@ -44,14 +47,14 @@ func (posix *Posix) GetBucket(ctx *gin.Context) {
 		}
 	***/
 
-	keys, err := walkDir(posix.getBucketPath(bucket))
+	keys, filenames, err := walkDir(posix.getBucketPath(bucket))
 	if err != nil {
 		log.Error("[listbucket:%s]", err.Error())
 		res.Error(errors.NoSuchBucket)
 	}
-
-	for _, key := range keys {
-		ctx.JSON(http.StatusOK, gin.H{"Key": key.Name(),
+	lens := len(posix.Config.Storage.Posix.Addr) + len(bucket) + 2
+	for index, key := range keys {
+		ctx.JSON(http.StatusOK, gin.H{"Key": filenames[index][lens:len(filenames[index])],
 			"LastModified": key.ModTime(),
 			"Size":         key.Size()})
 	}
@@ -118,8 +121,8 @@ func (posix *Posix) DeleteBucket(ctx *gin.Context) {
 
 	f, err := os.Open(bucketPath)
 	if err != nil {
-		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		log.Warn("[%s:%s]", posix.Name, err.Error())
+		res.Error(errors.BucketNotEmpty)
 		return
 	}
 
@@ -127,19 +130,19 @@ func (posix *Posix) DeleteBucket(ctx *gin.Context) {
 	f.Close()
 
 	if err != io.EOF {
-		log.Error("[%s:%s]", posix.Name, err.Error())
+		log.Warn("[%s:err != io.EOF]", posix.Name)
 		res.Error(errors.BucketNotEmpty)
 		return
 	}
 	if len(list) > 0 {
-		log.Error("[%s:len(list) > 0]", posix.Name)
+		log.Warn("[%s:len(list) > 0]", posix.Name)
 		res.Error(errors.BucketNotEmpty)
 		return
 	}
 
 	err = os.Remove(bucketPath)
 	if err != nil {
-		log.Error("[%s:%s]", posix.Name, err.Error())
+		log.Warn("[%s:%s]", posix.Name, err.Error())
 		res.Error(err)
 		return
 	}
