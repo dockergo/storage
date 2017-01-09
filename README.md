@@ -1,6 +1,6 @@
 # Storage Agent
 
->__<font color="Black">Supported Type: </font>__&nbsp;
+><font color="Black">Supported Type: </font>&nbsp;
  __<font color="Green">S3,Swift,Posix,NFS,Kdfs etc.</font>__
 
 ## __<font color="Crimson">1. Build workspace</font>__
@@ -37,11 +37,11 @@
 ## __<font color="Chocolate">5. Test all of agent interface</font>__
 
 
->__<font color="Black">Bucket Method:</font>__ &nbsp;
+><font color="Black">Bucket Method:</font>&nbsp;
  __<font color="Green">PUT,GET, HEAD, DELETE</font>__
 
 
->__<font color="Black">Object Method:</font>__&nbsp;
+><font color="Black">Object Method:</font>&nbsp;
  __<font color="Green">PUT, GET, HEAD, DELETE</font>__
 
 
