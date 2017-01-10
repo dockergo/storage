@@ -1,8 +1,5 @@
 # Storage
 
-![Alt text](anonymous.jpg)
-
-
 ><font color="Black">Supported Type: </font>&nbsp;
  __<font color="Green">
  	S3
