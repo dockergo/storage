@@ -10,7 +10,7 @@
 	KDFS
 	POSIX
 	OSS
-    QINIU
+        QINIU
     </font>__
 
 ## __<font color="Crimson">1. Build workspace</font>__
@@ -24,15 +24,14 @@
 ## __<font color="LightSkyBlue">2. Build</font>__
 
 ```sh
- cd $GOPATH/src/github.com/flyaways/storage
- export GOBIN=$pwd/bin make
+ cd storage
+ make
 ```
 
 ## __<font color="LawnGreen">3. Run</font>__
 
 ```sh
- cd $GOPATH/src/github.com/flyaways/storage
- ./bin/agent -config=agent.toml
+ ./docker/bin/agent -config=agent.toml
 ```
 
 ## __<font color="Chocolate">4. Test all of agent interface</font>__
