@@ -27,5 +27,5 @@ func (kfs *Kdfs) bucket(method string, ctx *gin.Context) {
 		return
 	}
 	url := buildBucketUrl(kfs.config.Storage.Kdfs.Addr, kfs.config.Storage.Kdfs.Account, bucket)
-	kfs.request(nil, method, url, res, ctx)
+	kfs.bucketrequest(nil, method, url, res, ctx)
 }

@@ -48,7 +48,7 @@ func buildBucketUrl(addr, account, bucket string) string {
 	return fmt.Sprintf("%s/%s/%s", addr, account, bucket)
 }
 
-func (kfs *Kdfs) request(data io.Reader, method, url string, res *result.Result, ctx *gin.Context) {
+func (kfs *Kdfs) bucketrequest(data io.Reader, method, url string, res *result.Result, ctx *gin.Context) {
 	httpResp, err := doRequest(method, url, data, kfs.httpClient)
 	if err != nil {
 		log.Error("[%s:%s]", kfs.Name, err.Error())
@@ -58,4 +58,14 @@ func (kfs *Kdfs) request(data io.Reader, method, url string, res *result.Result,
 	ctx.Status(httpResp.StatusCode)
 	content, _ := ioutil.ReadAll(httpResp.Body)
 	ctx.XML(httpResp.StatusCode, content)
+}
+
+func (kfs *Kdfs) request(data io.Reader, method, url string, res *result.Result, ctx *gin.Context) {
+	httpResp, err := doRequest(method, url, data, kfs.httpClient)
+	if err != nil {
+		log.Error("[%s:%s]", kfs.Name, err.Error())
+		res.Error(err)
+	}
+
+	ctx.Status(httpResp.StatusCode)
 }

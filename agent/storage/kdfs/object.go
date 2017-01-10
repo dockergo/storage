@@ -1,7 +1,7 @@
 package kdfs
 
 import (
-	"io"
+	"bytes"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +9,7 @@ import (
 	"github.com/flyaways/storage/agent/constant"
 	"github.com/flyaways/storage/agent/errors"
 	"github.com/flyaways/storage/agent/protocol"
+	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
 )
 
@@ -38,22 +39,23 @@ func (kfs *Kdfs) object(method string, ctx *gin.Context) {
 		return
 	}
 
-	var data io.Reader
+	var data []byte
 	var err error
 	if method == "PUT" {
-		data = ctx.Request.Body
+		data, key, err = protocol.PutHeadchecker(ctx, res, bucket, key)
 	} else if method == "POST" {
-		data, _, err = ctx.Request.FormFile("file")
+		data, key, err = protocol.PostHeadchecker(ctx, res, bucket, key)
 		if err != nil {
 			log.Error("[object.POST read multipart error:%s]", err.Error())
 			res.Error(errors.InternalError)
 			return
 		}
-	} else {
-		data = nil
 	}
 
 	url := buildUrl(kfs.config.Storage.Kdfs.Addr, kfs.config.Storage.Kdfs.Account, bucket, key)
-	kfs.request(data, method, url, res, ctx)
+	kfs.request(bytes.NewReader(data), method, url, res, ctx)
+
+	ctx.Header(constant.ETag, util.GetETagValue(data))
+	ctx.Header(constant.NewFileName, key)
 	ctx.JSON(http.StatusOK, gin.H{constant.NewFileName: key})
 }
