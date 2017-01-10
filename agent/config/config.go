@@ -28,7 +28,6 @@ type StorageConfig struct {
 	Type  string       `toml:"type"`
 	Swift *SwiftConfig `toml:"swift"`
 	S3    *S3Config    `toml:"s3"`
-	Ceph  *CephConfig  `toml:"ceph"`
 	Posix *PosixConfig `toml:"posix"`
 	Kdfs  *KdfsConfig  `toml:"kdfs"`
 	Nfs   *NFSConfig   `toml:"nfs"`
@@ -49,12 +48,6 @@ type KdfsConfig struct {
 }
 
 type S3Config struct {
-	Addr      string `toml:"addr"`
-	AccessKey string `toml:"accesskey"`
-	SecretKey string `toml:"secretkey"`
-}
-
-type CephConfig struct {
 	Addr      string `toml:"addr"`
 	AccessKey string `toml:"accesskey"`
 	SecretKey string `toml:"secretkey"`

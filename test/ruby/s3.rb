@@ -98,7 +98,7 @@ puts Aws::S3::Object.new(
 
 puts Aws::S3::Object.new(
         key: 'secret_plans.txt',
-        bucket_name: 'hermes_ceph_gem',
+        bucket_name: 'hermes_s3_gem',
         client: s3_client
 ).presigned_url(:get, expires_in: 60 * 60)
 输出形式类似下面这样:

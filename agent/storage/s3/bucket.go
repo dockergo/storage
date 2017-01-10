@@ -3,63 +3,82 @@ package s3
 import (
 	"net/http"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/util/log"
 	"github.com/gin-gonic/gin"
+	"github.com/mitchellh/goamz/s3"
 )
 
-func (s *S3) PutBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
-	if len(bucket) == 0 {
+func (c *s3c) GetBucket(ctx *gin.Context) {
+	resp, err := c.client.ListBuckets()
+	if err != nil {
+		log.Error("[listbucket:%s]", err.Error())
+	}
+
+	_, bkt := protocol.GetParamBucket(ctx)
+	if len(bkt) == 0 {
 		return
 	}
 
-	params := &s3.CreateBucketInput{
-		Bucket: aws.String(bucket),
-	}
-	_, s3Err := s.client.CreateBucket(params)
-	if s3Err != nil {
-		log.Error("[%s:%s]", s.Name, s3Err.Error())
-		res.Error(s3Err)
+	for _, bucket := range resp.Buckets {
+		if bkt == bucket.Name {
+			keys, err := bucket.GetBucketContents()
+			if err == nil {
+				for _, key := range *keys {
+					ctx.JSON(http.StatusOK, gin.H{"Key": key.Key,
+						"LastModified": key.LastModified,
+						"Size":         key.Size})
+				}
+			} else {
+				log.Error("[%s]", err.Error())
+			}
+		}
 	}
 	ctx.Status(http.StatusOK)
-
 }
 
-func (s *S3) HeadBucket(ctx *gin.Context) {
+func (c *s3c) PutBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
 		return
 	}
 
-	params := &s3.HeadBucketInput{
-		Bucket: aws.String(bucket),
+	if err := c.client.Bucket(bucket).PutBucket(s3.PublicRead); err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
+		return
 	}
-	_, s3Err := s.client.HeadBucket(params)
-	if s3Err != nil {
-		log.Error("[%s:%s]", s.Name, s3Err.Error())
-		res.Error(s3Err)
-	}
-	ctx.Status(http.StatusOK)
 
+	ctx.Status(http.StatusOK)
 }
 
-func (s *S3) DeleteBucket(ctx *gin.Context) {
+func (c *s3c) HeadBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
 		return
 	}
 
-	params := &s3.DeleteBucketInput{
-		Bucket: aws.String(bucket),
+	resp, err := c.client.Bucket(bucket).Head("/")
+	if err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
+		return
 	}
-	_, s3Err := s.client.DeleteBucket(params)
-	if s3Err != nil {
-		log.Error("[%s:%s]", s.Name, s3Err.Error())
-		res.Error(s3Err)
-	}
-	ctx.Status(http.StatusOK)
 
+	ctx.Status(resp.StatusCode)
+}
+
+func (c *s3c) DeleteBucket(ctx *gin.Context) {
+	res, bucket := protocol.GetParamBucket(ctx)
+	if len(bucket) == 0 {
+		return
+	}
+
+	if err := c.client.Bucket(bucket).DelBucket(); err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
+		return
+	}
+
+	ctx.Status(http.StatusOK)
 }

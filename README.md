@@ -39,6 +39,6 @@
 ## __<font color="VioletRed">5. References</font>__
 
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
-* [__Ceph__](http://docs.ceph.com/docs/master/)
+* [__s3__](http://docs.s3.com/docs/master/)
 
 <font color="Black"><h4 align = "center">©2016 flyaways</h4></font>

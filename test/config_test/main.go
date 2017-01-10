@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/flyaways/storage/agent/config"
-	"github.com/flyaways/storage/agent/storage/ceph"
 	"github.com/flyaways/storage/agent/storage/kdfs"
 	"github.com/flyaways/storage/agent/storage/nfs"
 	"github.com/flyaways/storage/agent/storage/posix"
@@ -62,12 +61,6 @@ func main() {
 	if storageswift != nil {
 		log.Error("storageswift error")
 		panic(storageswift)
-	}
-
-	storageceph := ceph.New(cfg)
-	if storageceph != nil {
-		log.Error("storageceph error")
-		panic(storageceph)
 	}
 
 }

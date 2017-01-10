@@ -1,21 +1,20 @@
 package s3
 
 import (
-	"bytes"
+	"errors"
 	"io/ioutil"
 	"net/http"
 
 	"github.com/flyaways/storage/agent/constant"
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/result"
+	"github.com/flyaways/storage/agent/util"
 	"github.com/flyaways/storage/agent/util/log"
-
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/gin-gonic/gin"
+	"github.com/mitchellh/goamz/s3"
 )
 
-func (s *S3) PutObject(ctx *gin.Context) {
+func (c *s3c) PutObject(ctx *gin.Context) {
 	res, bucket, key := protocol.GetParam(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
@@ -26,10 +25,10 @@ func (s *S3) PutObject(ctx *gin.Context) {
 		return
 	}
 
-	s.uploadObject(ctx, res, rawRequestdata, finalkey, bucket)
+	c.uploadObject(ctx, res, rawRequestdata, finalkey, bucket)
 }
 
-func (s *S3) PostObject(ctx *gin.Context) {
+func (c *s3c) PostObject(ctx *gin.Context) {
 	res, bucket, key := protocol.GetParamPost(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
@@ -40,84 +39,74 @@ func (s *S3) PostObject(ctx *gin.Context) {
 		return
 	}
 
-	s.uploadObject(ctx, res, rawRequestdata, finalkey, bucket)
+	c.uploadObject(ctx, res, rawRequestdata, finalkey, bucket)
 }
 
-func (s *S3) uploadObject(ctx *gin.Context, res *result.Result, rawRequestdata []byte, finalkey, bucket string) {
-	contentType := ctx.Request.Header.Get(constant.ContentType)
-	params := &s3.PutObjectInput{
-		Bucket:      aws.String(bucket),
-		Key:         aws.String(finalkey),
-		Body:        bytes.NewReader(rawRequestdata),
-		ContentType: aws.String(contentType),
+func (c *s3c) uploadObject(ctx *gin.Context, res *result.Result, rawRequestdata []byte, finalkey, bucket string) {
+	v := ctx.Request.Header.Get(constant.ContentType)
+	err := c.client.Bucket(bucket).Put(finalkey, rawRequestdata, v, s3.PublicReadWrite)
+	if err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
+		return
 	}
 
-	_, s3Err := s.client.PutObject(params)
-	if s3Err != nil {
-		log.Error("[%s:%s]", s.Name, s3Err.Error())
-		res.Error(s3Err)
-	}
+	ctx.Header(constant.ETag, util.GetETagValue(rawRequestdata))
+	ctx.Header(constant.NewFileName, finalkey)
+	ctx.Status(http.StatusOK)
 	ctx.JSON(http.StatusOK, gin.H{constant.NewFileName: finalkey})
-	return
 }
 
-func (s *S3) GetObject(ctx *gin.Context) {
+func (c *s3c) GetObject(ctx *gin.Context) {
 	res, bucket, key := protocol.GetParam(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
-	params := &s3.GetObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String(key),
+
+	rc, err := c.client.Bucket(bucket).GetReader(key)
+	if err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
+		return
 	}
-	s3Resp, s3Err := s.client.GetObject(params)
-	if s3Err != nil {
-		log.Error("[%s:%s]", s.Name, s3Err.Error())
-		res.Error(s3Err)
-	}
-	content, _ := ioutil.ReadAll(s3Resp.Body)
+	content, _ := ioutil.ReadAll(rc)
 	protocol.GetCkecker(ctx, content, res)
 }
 
-func (s *S3) HeadObject(ctx *gin.Context) {
+func (c *s3c) HeadObject(ctx *gin.Context) {
 	res, bucket, key := protocol.GetParam(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
-	params := &s3.HeadObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String(key),
-	}
-	s3Resp, s3Err := s.client.HeadObject(params)
-	if s3Err != nil {
-		log.Error("[%s:%s]", s.Name, s3Err.Error())
-		res.Error(s3Err)
-	}
 
-	objEtag := s3Resp.ETag
-	if protocol.CheckETag(ctx, *objEtag) {
-		log.Error("[%s:S3 HeadObject invalid Etag]]", s.Name)
-		res.Error("[S3 HeadObject invalid Etag]")
+	resp, err := c.client.Bucket(bucket).Head(key)
+	if err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
 		return
 	}
-
-	protocol.HeadChecker(ctx, res, *objEtag, (*s3Resp.LastModified).Format(constant.TimeFormat))
-	ctx.Status(http.StatusOK)
+	//no check
+	//objEtag := ctx.Request.Header.Get(constant.ETag)
+	objEtag := resp.Header.Get(constant.ETag)
+	if protocol.CheckETag(ctx, objEtag) {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(errors.New("invalid Etag"))
+		return
+	}
+	objLastModified := resp.Header.Get(constant.LastModified)
+	protocol.HeadChecker(ctx, res, objEtag, objLastModified)
+	ctx.Status(resp.StatusCode)
 }
 
-func (b *S3) DeleteObject(ctx *gin.Context) {
+func (c *s3c) DeleteObject(ctx *gin.Context) {
 	res, bucket, key := protocol.GetParam(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
-	params := &s3.DeleteObjectInput{
-		Bucket: aws.String(bucket),
-		Key:    aws.String(key),
-	}
-	_, s3Err := b.client.DeleteObject(params)
-	if s3Err != nil {
-		log.Error("[s3 DeleteObject error:%s]", s3Err.Error())
-		res.Error(s3Err)
+
+	if err := c.client.Bucket(bucket).Del(key); err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
 		return
 	}
 

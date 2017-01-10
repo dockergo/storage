@@ -8,7 +8,6 @@ import (
 
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/storage/adapter"
-	"github.com/flyaways/storage/agent/storage/ceph"
 	"github.com/flyaways/storage/agent/storage/kdfs"
 	"github.com/flyaways/storage/agent/storage/nfs"
 	"github.com/flyaways/storage/agent/storage/posix"
@@ -20,21 +19,18 @@ import (
 const (
 	S3    = "s3"
 	SWIFT = "swift"
-	CEPH  = "ceph"
 	KDFS  = "kdfs"
 	POSIX = "posix"
 	NFS   = "nfs"
 )
 
 func NewStorage(config *config.Config) (adapter.Storager, error) {
-	log.Info("[storage type:%s]", tracker.Red(config.Storage.Type))
+	log.Info("[storage-type:%s]", tracker.Red(config.Storage.Type))
 	switch strings.ToLower(config.Storage.Type) {
 	case SWIFT:
 		return swift.New(config), nil
 	case S3:
 		return s3.New(config), nil
-	case CEPH:
-		return ceph.New(config), nil
 	case POSIX:
 		return posix.New(config), nil
 	case KDFS:

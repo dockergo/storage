@@ -41,7 +41,7 @@ addr = "S3_ADDR"
 accesskey = "S3_ACCESSKEY"
 secretkey = "S3_SECRETKEY"
 
-[storage.ceph]
+[storage.s3]
 addr = "CEPH_ADDR"
 accesskey = "CEPH_ACCESSKEY"
 secretkey = "CEPH_SECRETKEY"

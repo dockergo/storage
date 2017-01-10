@@ -22,16 +22,13 @@ fi
 sed -i "s,STORAGE_TYPE,$STORAGE_TYPE,g" $agentconf
 
 sed -i "s,POSIX_LOCAL_PATH,$POSIX_LOCAL_PATH,g" $agentconf
+
 sed -i "s,NFS_LOCAL_PATH,$NFS_LOCAL_PATH,g" $agentconf
 sed -i "s,NFS_REMOTE_ADDR,$NFS_REMOTE_ADDR:$NFS_REMOTE_PATH,g" $agentconf
 
 sed -i "s,S3_ACCESSKEY,$S3_ACCESSKEY,g" $agentconf
 sed -i "s,S3_SECRETKEY,$S3_SECRETKEY,g" $agentconf
 sed -i "s,S3_ADDR,$S3_ADDR,g" $agentconf
-
-sed -i "s,CEPH_ACCESSKEY,$CEPH_ACCESSKEY,g" $agentconf
-sed -i "s,CEPH_SECRETKEY,$CEPH_SECRETKEY,g" $agentconf
-sed -i "s,CEPH_ADDR,http://$CEPH_ADDR:$CEPH_ADDR_PORT,g" $agentconf
 
 sed -i "s,KDFS_ACCOUNT,$KDFS_ACCOUNT,g" $agentconf
 sed -i "s,KDFS_ADDR,$KDFS_ADDR:$KDFS_ADDR_PATH,g" $agentconf

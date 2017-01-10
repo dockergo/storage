@@ -1,4 +1,4 @@
-package ceph
+package s3
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (c *Ceph) Service(ctx *gin.Context) {
+func (c *s3c) Service(ctx *gin.Context) {
 	resp, err := c.client.ListBuckets()
 	if err != nil {
 		log.Error("[listbucket:%s]", err.Error())
