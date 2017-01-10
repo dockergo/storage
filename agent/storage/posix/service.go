@@ -22,15 +22,13 @@ func walkDirs(path string) (buckets []string, err error) {
 }
 
 func (posix *Posix) Service(ctx *gin.Context) {
-	res, _ := protocol.GetParamBucket(ctx)
-	/***
-		if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-			log.Error("[%s:%s]", posix.Name, err.Error())
-			res.Error(errors.NoSuchBucket)
-			ctx.Status(http.StatusNotFound)
-			return
-		}
-	***/
+	res, bucket := protocol.GetParamBucket(ctx)
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
+		res.Error(errors.NoSuchBucket)
+		ctx.Status(http.StatusNotFound)
+		return
+	}
+
 	buckets, err := walkDirs(posix.Config.Storage.Posix.Addr)
 	if err != nil {
 		log.Error("[listbucket:%s]", err.Error())
@@ -38,7 +36,7 @@ func (posix *Posix) Service(ctx *gin.Context) {
 	}
 
 	for _, bucket := range buckets {
-		ctx.JSON(http.StatusOK, gin.H{"Key": bucket})
+		ctx.JSON(http.StatusOK, gin.H{"Bucket": bucket})
 	}
 	ctx.Status(http.StatusOK)
 }

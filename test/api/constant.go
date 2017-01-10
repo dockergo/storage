@@ -17,6 +17,6 @@ var addr = flag.String("addr", "127.0.0.1:20808", "addr")
 var content = flag.String("ctx", "Stand on the shoulders of giants", "PUT method content")
 var curfile = flag.String("curf", "curfile", "current file name")
 
-var bucketName = flag.String("bktName", "bk5buckets", "bucket Name")
-var key = flag.String("key", "key", "key")
+var bucketName = flag.String("bktName", "flyaways", "bucket Name")
+var key = flag.String("key", "keydefault", "key")
 var newName = flag.String("newName", "newName", "newfile Name")

@@ -1,7 +1,6 @@
 package posix
 
 import (
-	"errors"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -11,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/flyaways/storage/agent/constant"
+	"github.com/flyaways/storage/agent/errors"
 	"github.com/flyaways/storage/agent/protocol"
 	"github.com/flyaways/storage/agent/result"
 	"github.com/flyaways/storage/agent/util"
@@ -51,26 +51,24 @@ func (posix *Posix) uploadObject(ctx *gin.Context, res *result.Result, rawReques
 	err := os.MkdirAll(posix.getBucketPath(bucket), os.ModePerm)
 	if err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.InternalError)
 		return
 	}
 
-	/***
-		if err = posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-			log.Error("[%s:%s]", posix.Name, err.Error())
-			res.Error(err)
-			return
-		}
-	***/
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
+		log.Error("[%s:%s]", posix.Name, err.Error())
+		res.Error(errors.NoSuchBucket)
+		return
+	}
 
 	filename := filepath.Join(posix.getBucketPath(bucket), finalkey)
 	if err := os.MkdirAll(filepath.Dir(filename), os.ModePerm); err != nil {
 		return
 	}
 
-	if err := ioutil.WriteFile(filename, rawRequestdata, 0666); err != nil {
+	if err = ioutil.WriteFile(filename, rawRequestdata, 0666); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 
@@ -88,24 +86,22 @@ func (posix *Posix) GetObject(ctx *gin.Context) {
 		return
 	}
 
-	/***
-	if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchBucket)
 		return
 	}
-	***/
 
 	filename := filepath.Join(posix.getBucketPath(bucket), key)
-	if err := posix.Checker.FileChecker(filename); err != nil {
+	if err := posix.FileChecker(filename); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 
@@ -119,25 +115,23 @@ func (posix *Posix) HeadObject(ctx *gin.Context) {
 		return
 	}
 
-	/***
-	if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchBucket)
 		return
 	}
-	***/
 
 	filename := filepath.Join(posix.getBucketPath(bucket), key)
-	if err := posix.Checker.FileChecker(filename); err != nil {
+	if err := posix.FileChecker(filename); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 
 	fileinfo, err := os.Stat(filename)
 	if err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 
@@ -145,7 +139,7 @@ func (posix *Posix) HeadObject(ctx *gin.Context) {
 	objEtag := ctx.Request.Header.Get(constant.ETag)
 	if protocol.CheckETag(ctx, objEtag) {
 		log.Error("[%s:CheckETag]")
-		res.Error(errors.New("invalid Etag"))
+		res.Error(errors.NoSuchKey)
 		return
 	}
 
@@ -167,25 +161,22 @@ func (posix *Posix) DeleteObject(ctx *gin.Context) {
 		return
 	}
 
-	/***
-		if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-			log.Error("[%s:%s]", posix.Name, err.Error())
-			res.Error(err)
-			return
-		}
-	***/
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
+		log.Error("[%s:%s]", posix.Name, err.Error())
+		res.Error(errors.NoSuchBucket)
+		return
+	}
 
 	filename := filepath.Join(posix.getBucketPath(bucket), key)
-	if err := posix.Checker.FileChecker(filename); err != nil {
-		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+	if err := posix.FileChecker(filename); err != nil {
+		res.Error(errors.NoSuchKey)
 		return
 	}
 
 	err := os.Remove(filename)
 	if err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
-		res.Error(err)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 

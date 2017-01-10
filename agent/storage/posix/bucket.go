@@ -38,18 +38,14 @@ func (posix *Posix) GetBucket(ctx *gin.Context) {
 		return
 	}
 
-	/***
-		if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-			log.Error("[%s:%s]", posix.Name, err.Error())
-			res.Error(errors.NoSuchBucket)
-			ctx.Status(http.StatusNotFound)
-			return
-		}
-	***/
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
+		res.Error(errors.NoSuchBucket)
+		ctx.Status(http.StatusNotFound)
+		return
+	}
 
 	keys, filenames, err := walkDir(posix.getBucketPath(bucket))
 	if err != nil {
-		log.Error("[listbucket:%s]", err.Error())
 		res.Error(errors.NoSuchBucket)
 	}
 	lens := len(posix.Config.Storage.Posix.Addr) + len(bucket) + 2
@@ -66,7 +62,6 @@ func (posix *Posix) PutBucket(ctx *gin.Context) {
 	if len(bucket) == 0 {
 		return
 	}
-
 	err := os.MkdirAll(posix.getBucketPath(bucket), os.ModePerm)
 	if err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
@@ -74,32 +69,28 @@ func (posix *Posix) PutBucket(ctx *gin.Context) {
 		return
 	}
 
-	posix.getBucketPath(bucket)
+	bucketPath := posix.getBucketPath(bucket)
 
-	/***
-		if err := posix.Checker.DirChecker(bucketPath); err != nil {
-			log.Error("[%s:%s]", posix.Name, err.Error())
-			res.Error(errors.InvalidArgument)
-			return
-		}
-	***/
+	if err := posix.DirChecker(bucketPath); err != nil {
+		res.Error(errors.InvalidArgument)
+		return
+	}
+
 	ctx.Status(http.StatusOK)
 }
 
 func (posix *Posix) HeadBucket(ctx *gin.Context) {
-	_, bucket := protocol.GetParamBucket(ctx)
+	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
 		return
 	}
 
-	/***
-		if err := posix.Checker.DirChecker(posix.getBucketPath(bucket)); err != nil {
-			log.Error("[%s:%s]", posix.Name, err.Error())
-			res.Error(errors.NoSuchBucket)
-			ctx.Status(http.StatusNotFound)
-			return
-		}
-	***/
+	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
+		res.Error(errors.NoSuchBucket)
+		ctx.Status(http.StatusNotFound)
+		return
+	}
+
 	ctx.Status(http.StatusOK)
 }
 
@@ -111,18 +102,15 @@ func (posix *Posix) DeleteBucket(ctx *gin.Context) {
 
 	bucketPath := posix.getBucketPath(bucket)
 
-	/***
-	if err := posix.Checker.DirChecker(bucketPath); err != nil {
-		log.Error("[%s:%s]", posix.Name, err.Error())
+	if err := posix.DirChecker(bucketPath); err != nil {
 		res.Error(errors.NoSuchBucket)
 		return
 	}
-	***/
 
 	f, err := os.Open(bucketPath)
 	if err != nil {
 		log.Warn("[%s:%s]", posix.Name, err.Error())
-		res.Error(errors.BucketNotEmpty)
+		res.Error(errors.NoSuchKey)
 		return
 	}
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/storage/kdfs"
-	"github.com/flyaways/storage/agent/storage/nfs"
+	"github.com/flyaways/storage/agent/storage/oss"
 	"github.com/flyaways/storage/agent/storage/posix"
 	"github.com/flyaways/storage/agent/storage/s3"
 	"github.com/flyaways/storage/agent/storage/swift"
@@ -34,10 +34,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	storagenfs := nfs.New(cfg)
-	if storagenfs != nil {
+	storageoss := oss.New(cfg)
+	if storageoss != nil {
 		log.Error("storagenfs error")
-		panic(storagenfs)
+		panic(storageoss)
 	}
 	storageposix := posix.New(cfg)
 	if storageposix != nil {

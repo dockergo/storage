@@ -27,7 +27,6 @@ func New(config *config.Config) *s3c {
 	var cnc = aws.Region{
 		Name:                 "cn-north-1",
 		S3Endpoint:           c.config.Storage.S3.Addr,
-		S3BucketEndpoint:     "",
 		S3LocationConstraint: false,
 		S3LowercaseBucket:    false,
 	}

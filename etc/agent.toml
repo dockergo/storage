@@ -2,16 +2,6 @@
 http_addr = ":20808"
 scheme = "http"
 
-[init]
-uploaddir="/wpsep/agent/emptyfile"
-buckets = [
-"wpsfile",
-"bk0wpsfile",
-"bk1wpsfile",
-"bk4wpsfile",
-"bk5wpsfile",
-]
-
 [logs]
 access_log = false
 path = ""
@@ -22,7 +12,7 @@ accesskey = "1GL02rRYQxK8s7FQh8dV"
 secketkey = "2IDjaPOpFfkq5Zf9K4tKu8k5AKApY8S8eKV1zsRl"
 
 [storage]
-type = "s3"
+type = "oss"
 
 [storage.swift]
 addr = "http://192.168.20.6/v1"
@@ -41,9 +31,10 @@ addr = "http://192.168.20.4:8888"
 accesskey = "CUPQ9OHNSEQ6KYDLYNK2"
 secretkey = "jmgkfRgE2IkgKH9gmOoboOanID7SNHQ2yNRHw6GF"
 
+[storage.oss]
+addr = "oss-cn-beijing.aliyuncs.com"
+accesskey = "XXyour accesskeyXX"
+secretkey = "XXyour secretkeyXX"
+
 [storage.posix]
 addr = "/tmp/posix"
-
-[storage.nfs]
-addr = "/data"
-remote_addr = "192.168.158.64:/data"

@@ -28,9 +28,9 @@ type StorageConfig struct {
 	Type  string       `toml:"type"`
 	Swift *SwiftConfig `toml:"swift"`
 	S3    *S3Config    `toml:"s3"`
+	OSS   *OSSConfig   `toml:"oss"`
 	Posix *PosixConfig `toml:"posix"`
 	Kdfs  *KdfsConfig  `toml:"kdfs"`
-	Nfs   *NFSConfig   `toml:"nfs"`
 }
 
 type SwiftConfig struct {
@@ -53,13 +53,14 @@ type S3Config struct {
 	SecretKey string `toml:"secretkey"`
 }
 
-type PosixConfig struct {
-	Addr string `toml:"addr"`
+type OSSConfig struct {
+	Addr      string `toml:"addr"`
+	AccessKey string `toml:"accesskey"`
+	SecretKey string `toml:"secretkey"`
 }
 
-type NFSConfig struct {
-	Addr       string `toml:"addr"`
-	RemoteAddr string `toml:"remote_addr"`
+type PosixConfig struct {
+	Addr string `toml:"addr"`
 }
 
 type InitConfig struct {

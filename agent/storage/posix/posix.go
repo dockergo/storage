@@ -10,14 +10,8 @@ import (
 	"github.com/flyaways/storage/agent/util/log"
 )
 
-type Checker interface {
-	DirChecker(string) *errors.Error
-	FileChecker(string) *errors.Error
-}
-
 type Posix struct {
 	adapter.StorageAdapter
-	Checker
 	Config *config.Config
 }
 
@@ -25,7 +19,6 @@ func New(config *config.Config) *Posix {
 	posix := new(Posix)
 	posix.Config = config
 	posix.Name = "posix"
-	posix.Checker = posix
 	return posix
 }
 
@@ -34,9 +27,9 @@ func (posix *Posix) IsExist(filename string) bool {
 	return err == nil || os.IsExist(err)
 }
 
-func (posix *Posix) DirCheckerer(dir string) *errors.Error {
+func (posix *Posix) DirChecker(dir string) *errors.Error {
 	if !posix.IsExist(dir) {
-		log.Error("[%s:NoSuchBucket]", posix.Name)
+		log.Error("[%s:NoSuchBucket]", dir)
 		return errors.NoSuchBucket
 	}
 	return nil
@@ -44,7 +37,7 @@ func (posix *Posix) DirCheckerer(dir string) *errors.Error {
 
 func (posix *Posix) FileChecker(filepath string) *errors.Error {
 	if !posix.IsExist(filepath) {
-		log.Error("[%s:NoSuchKey]", posix.Name)
+		log.Error("[%s:NoSuchKey]", filepath)
 		return errors.NoSuchKey
 	}
 	return nil

@@ -5,6 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func (kfs *Kdfs) GetBucket(ctx *gin.Context) {
+	kfs.bucket("GET", ctx)
+}
+
 func (kfs *Kdfs) PutBucket(ctx *gin.Context) {
 	kfs.bucket("PUT", ctx)
 }

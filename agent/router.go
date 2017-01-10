@@ -50,6 +50,7 @@ func RegisterURLs(app *app.App, router *gin.Engine) {
 		object.GET("/*key", app.GetObject)
 		object.DELETE("/*key", app.DeleteObject)
 	}
+
 	service := router.Group("/")
 	{
 		service.GET("", app.Service)

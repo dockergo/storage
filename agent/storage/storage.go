@@ -9,7 +9,7 @@ import (
 	"github.com/flyaways/storage/agent/config"
 	"github.com/flyaways/storage/agent/storage/adapter"
 	"github.com/flyaways/storage/agent/storage/kdfs"
-	"github.com/flyaways/storage/agent/storage/nfs"
+	"github.com/flyaways/storage/agent/storage/oss"
 	"github.com/flyaways/storage/agent/storage/posix"
 	"github.com/flyaways/storage/agent/storage/s3"
 	"github.com/flyaways/storage/agent/storage/swift"
@@ -21,11 +21,11 @@ const (
 	SWIFT = "swift"
 	KDFS  = "kdfs"
 	POSIX = "posix"
-	NFS   = "nfs"
+	OSS   = "oss"
 )
 
 func NewStorage(config *config.Config) (adapter.Storager, error) {
-	log.Info("[storage-type:%s]", tracker.Red(config.Storage.Type))
+	log.Info("[storage-type:%s]", tracker.Yellow(config.Storage.Type))
 	switch strings.ToLower(config.Storage.Type) {
 	case SWIFT:
 		return swift.New(config), nil
@@ -35,8 +35,8 @@ func NewStorage(config *config.Config) (adapter.Storager, error) {
 		return posix.New(config), nil
 	case KDFS:
 		return kdfs.New(config), nil
-	case NFS:
-		return nfs.New(config), nil
+	case OSS:
+		return oss.New(config), nil
 	default:
 		log.Error(tracker.Red("[unsupport storage type]"))
 		return nil, fmt.Errorf(tracker.Red("[storage type error]"))

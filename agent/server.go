@@ -26,9 +26,6 @@ func NewServer(cfg *config.Config) (*Server, error) {
 		return nil, err
 	}
 
-	log.Info("[initialize waitting....]")
-	StorageInit(s.app)
-	log.Info("[initialize pass!]")
 	return s, nil
 }
 

@@ -9,6 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func (swt *Swift) GetBucket(ctx *gin.Context) {
+	swt.bucket("GET", ctx)
+}
+
+func (swt *Swift) PostBucket(ctx *gin.Context) {
+	swt.bucket("POST", ctx)
+}
+
 func (swt *Swift) PutBucket(ctx *gin.Context) {
 	swt.bucket("PUT", ctx)
 }
@@ -27,5 +35,5 @@ func (swt *Swift) bucket(method string, ctx *gin.Context) {
 		return
 	}
 	url := buildBucketUrl(swt.config.Storage.Swift.Addr, swt.authAccount, bucket)
-	swt.request(nil, method, url, res, ctx)
+	swt.bucketrequest(nil, method, url, res, ctx)
 }

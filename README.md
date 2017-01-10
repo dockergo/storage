@@ -4,7 +4,14 @@
 
 
 ><font color="Black">Supported Type: </font>&nbsp;
- __<font color="Green">S3,Swift,Posix,NFS,Kdfs etc.</font>__
+ __<font color="Green">
+ 	S3
+	SWIFT
+	KDFS
+	POSIX
+	OSS
+    QINIU
+    </font>__
 
 ## __<font color="Crimson">1. Build workspace</font>__
 
@@ -35,6 +42,10 @@
 
 ><font color="Black">Object Method:</font>&nbsp;
  __<font color="Green">PUT, GET, HEAD, DELETE</font>__
+
+><font color="Black">Service Method:</font>&nbsp;
+ __<font color="Green">GET</font>__
+
 
 ## __<font color="VioletRed">5. References</font>__
 

@@ -3,6 +3,7 @@ package result
 import (
 	"bytes"
 	"encoding/xml"
+
 	"github.com/flyaways/storage/agent/errors"
 	"github.com/gin-gonic/gin"
 )
@@ -11,8 +12,8 @@ type Result struct {
 	context *gin.Context
 }
 
-func NewResult(context *gin.Context) *Result {
-	return &Result{context: context}
+func NewResult(ctx *gin.Context) *Result {
+	return &Result{context: ctx}
 }
 
 func (r *Result) Json(code int, data interface{}) {

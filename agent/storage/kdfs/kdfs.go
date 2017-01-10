@@ -3,6 +3,7 @@ package kdfs
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -12,8 +13,6 @@ import (
 	"github.com/flyaways/storage/agent/result"
 	"github.com/flyaways/storage/agent/storage/adapter"
 	"github.com/flyaways/storage/agent/util/log"
-
-	errs "github.com/flyaways/storage/agent/errors"
 )
 
 type Kdfs struct {
@@ -56,16 +55,7 @@ func (kfs *Kdfs) request(data io.Reader, method, url string, res *result.Result,
 		res.Error(err)
 	}
 
-	if httpResp.StatusCode == http.StatusAccepted {
-		res.Error(errs.StatusAccepted)
-	} else if httpResp.StatusCode == http.StatusNotFound {
-		res.Error(errs.StatusNotFound)
-	} else if httpResp.StatusCode == http.StatusNoContent {
-		res.Error(errs.StatusNoContent)
-	} else if httpResp.StatusCode == http.StatusConflict {
-		res.Error(errs.StatusConflict)
-	} else {
-		res.Error(errs.UnknownError)
-	}
 	ctx.Status(httpResp.StatusCode)
+	content, _ := ioutil.ReadAll(httpResp.Body)
+	ctx.XML(httpResp.StatusCode, content)
 }

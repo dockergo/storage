@@ -9,12 +9,6 @@ import (
 	"github.com/flyaways/tracker"
 )
 
-type InitData struct {
-	Bucket  string
-	Key     string
-	RawData []byte
-}
-
 type Services interface {
 	Service(ctx *gin.Context)
 }
@@ -36,16 +30,10 @@ type Bucketer interface {
 	OptionsBucket(ctx *gin.Context)
 }
 
-type InitAgent interface {
-	InitBucket(initdata *InitData) error
-	InitObject(initdata *InitData) error
-}
-
 type Storager interface {
 	Services
 	Objecter
 	Bucketer
-	InitAgent
 }
 
 type StorageAdapter struct {

@@ -137,3 +137,22 @@ func (swt *Swift) request(data io.Reader, method, url string, res *result.Result
 
 	ctx.Status(httpResponse.StatusCode)
 }
+
+func (swt *Swift) bucketrequest(data io.Reader, method, url string, res *result.Result, ctx *gin.Context) {
+	httpResponse, err := doRequest(method, url, swt.authToken, data, swt.httpClient)
+	if err != nil {
+		err = swt.Auth()
+		if err == nil {
+			httpResponse, err = doRequest(method, url, swt.authToken, data, swt.httpClient)
+		}
+	}
+
+	if err != nil {
+		log.Error("[%s:%s]", swt.Name, err.Error())
+		res.Error(errs.InvalidArgument)
+	}
+
+	ctx.Status(httpResponse.StatusCode)
+	content, _ := ioutil.ReadAll(httpResponse.Body)
+	ctx.XML(httpResponse.StatusCode, content)
+}
