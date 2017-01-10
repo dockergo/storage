@@ -9,16 +9,17 @@ import (
 
 func Bucket(method string) {
 	urlStr := fmt.Sprintf("http://%s/%s", *addr, *bucketName)
-	expiresTime := GetDate()
+	fmt.Printf("\n[%40s:\t%-50s]\n", tracker.Blue("BUCKET-%s-URL", method), tracker.Yellow(urlStr))
+
 	httpReq, _ := http.NewRequest(method, urlStr, nil)
+	expiresTime := GetDate()
 	httpReq.Header.Add("date", expiresTime)
-	fmt.Printf("\n[BUCKET-%s-URL:\t%26s]\n", method, tracker.Blue(urlStr))
+
 	sign := DoSignature(method,
 		"",
 		"",
 		expiresTime,
 		"/"+*bucketName, *secretKey, map[string]string{})
-
 	autoString := fmt.Sprintf("KSS %s:%s", *accessKey, sign)
 	httpReq.Header["authorization"] = []string{autoString}
 
@@ -27,10 +28,11 @@ func Bucket(method string) {
 
 func Service(method string) {
 	urlStr := fmt.Sprintf("http://%s/", *addr)
-	expiresTime := GetDate()
+	fmt.Printf("\n[%40s:\t%-50s]\n", tracker.Blue("SERVICE-%s-URL", method), tracker.Yellow(urlStr))
+
 	httpReq, _ := http.NewRequest(method, urlStr, nil)
+	expiresTime := GetDate()
 	httpReq.Header.Add("date", expiresTime)
-	fmt.Printf("\n[SERVICE-%s-URL:\t%26s]\n", method, tracker.Blue(urlStr))
 	sign := DoSignature(method,
 		"",
 		"",

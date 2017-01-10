@@ -3,58 +3,13 @@ package api_test
 import (
 	"crypto/hmac"
 	"crypto/sha1"
-	"crypto/tls"
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
-	"net"
-	"net/http"
 	"strconv"
 	"time"
 
 	"github.com/flyaways/tracker"
 )
-
-func DoRequest(httpReq *http.Request) {
-	tr := &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		Dial: (&net.Dialer{
-			Timeout:   30 * time.Second,
-			KeepAlive: 30 * time.Second,
-		}).Dial,
-		TLSHandshakeTimeout: 10 * time.Second,
-		MaxIdleConnsPerHost: 180,
-		TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
-	}
-
-	client := &http.Client{Transport: tr}
-
-	httpRep, err := client.Do(httpReq)
-	if err != nil {
-		fmt.Printf("\n%s\n", err.Error())
-	}
-
-	fmt.Printf("[%26s:\t%s]\n", tracker.Magenta("status"), tracker.Red("%d", httpRep.StatusCode))
-
-	body, err := ioutil.ReadAll(httpRep.Body)
-	if err != nil {
-		fmt.Printf("\n[%s]\n", tracker.Red(err.Error()))
-	}
-
-	if httpRep.Header.Get(Newfilename) != "" {
-		*newName = httpRep.Header.Get(Newfilename)
-	}
-
-	for key, value := range httpRep.Header {
-		for _, values := range value {
-			fmt.Printf("[%26s:\t%v]\n", tracker.Magenta(key), values)
-		}
-	}
-
-	fmt.Printf("[%26s:\t%s]\n", tracker.Magenta("bodySize"), fmt.Sprintf("%d", len(body)))
-	fmt.Printf("%26s:\n%s\n", tracker.Magenta("body"), tracker.Yellow(string(body)))
-
-}
 
 func DoSignature(HTTPVerb, ContentMD5, ContentType, Date, CanonicalizedResource, secretKey string,
 	CanonicalizedKssHeaders map[string]string) string {
@@ -62,13 +17,18 @@ func DoSignature(HTTPVerb, ContentMD5, ContentType, Date, CanonicalizedResource,
 		ContentMD5 + "\n" +
 		ContentType + "\n" +
 		Date + "\n"
+
 	for k, v := range CanonicalizedKssHeaders {
 		stringToSign += k + ":" + v + "\n"
 	}
+
 	stringToSign += CanonicalizedResource
 	h := hmac.New(sha1.New, []byte(secretKey))
 	h.Write([]byte(stringToSign))
 	sign := base64.StdEncoding.EncodeToString(h.Sum(nil))
+
+	fmt.Printf("[%40s:\t%-50s]\n", tracker.Blue("signature"), tracker.Yellow(string(sign)))
+
 	return sign
 }
 

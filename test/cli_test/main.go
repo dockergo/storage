@@ -4,7 +4,6 @@ import (
 	"flag"
 
 	test "github.com/flyaways/storage/test/api"
-	"github.com/flyaways/tracker"
 )
 
 func RuningCLI() {
@@ -21,7 +20,5 @@ func RuningCLI() {
 }
 
 func main() {
-	tracker.Tracker("notice", test.Common, "MATCH TESTING")
 	RuningCLI()
-	tracker.Tracker("notice", test.Common, "MATCH TESTING OVER!")
 }
