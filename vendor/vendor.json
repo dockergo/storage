@@ -27,10 +27,10 @@
 			"revisionTime": "2016-02-12T16:43:26Z"
 		},
 		{
-			"checksumSHA1": "5Hdx79hnUGLmtohOLvn1YlMIOBo=",
+			"checksumSHA1": "OvvB9L/ssGMcJJJV39fAoRxlUBY=",
 			"path": "github.com/flyaways/tracker",
-			"revision": "df572626954c8df7ad3c391ec13eef6eec0b02cd",
-			"revisionTime": "2016-11-03T08:27:48Z"
+			"revision": "d84e48a3e80eb4c1fda8dc58d1fce70642da681a",
+			"revisionTime": "2017-01-10T10:28:20Z"
 		},
 		{
 			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
@@ -105,12 +105,6 @@
 			"revisionTime": "2016-01-26T18:01:36Z"
 		},
 		{
-			"checksumSHA1": "I4njd26dG5hxFT2nawuByM4pxzY=",
-			"path": "github.com/mattn/go-colorable",
-			"revision": "d228849504861217f796da67fae4f6e347643f15",
-			"revisionTime": "2016-11-03T16:00:40Z"
-		},
-		{
 			"checksumSHA1": "xZuhljnmBysJPta/lMyYmJdujCg=",
 			"path": "github.com/mattn/go-isatty",
 			"revision": "30a891c33c7cde7b02a981314b4228ec99380cca",
@@ -163,6 +157,84 @@
 			"path": "gopkg.in/yaml.v2",
 			"revision": "a1982c84687b468c98043345e68b814683b40f2f",
 			"revisionTime": "2016-03-15T03:28:02Z"
+		},
+		{
+			"checksumSHA1": "aqjlcZAa2rFeNzevKRzW4mRONCE=",
+			"path": "qiniupkg.com/api.v7/api",
+			"revision": "7cfd4b639917bf924d8c1cd17a6d61175e809066",
+			"revisionTime": "2016-12-09T08:20:56Z"
+		},
+		{
+			"checksumSHA1": "zHJ+/Ij2sFr0i9GCoq7DI4SVTqI=",
+			"path": "qiniupkg.com/api.v7/auth/qbox",
+			"revision": "7cfd4b639917bf924d8c1cd17a6d61175e809066",
+			"revisionTime": "2016-12-09T08:20:56Z"
+		},
+		{
+			"checksumSHA1": "0gEcmD736mRXdhu68Qzb+c96vm8=",
+			"path": "qiniupkg.com/api.v7/conf",
+			"revision": "7cfd4b639917bf924d8c1cd17a6d61175e809066",
+			"revisionTime": "2016-12-09T08:20:56Z"
+		},
+		{
+			"checksumSHA1": "JNoW1YLNz6EkgNpO4+uNFMFmF1c=",
+			"path": "qiniupkg.com/api.v7/kodo",
+			"revision": "7cfd4b639917bf924d8c1cd17a6d61175e809066",
+			"revisionTime": "2016-12-09T08:20:56Z"
+		},
+		{
+			"checksumSHA1": "uTPAEWXTFiOado/A7sSY77CV/HM=",
+			"path": "qiniupkg.com/api.v7/kodocli",
+			"revision": "7cfd4b639917bf924d8c1cd17a6d61175e809066",
+			"revisionTime": "2016-12-09T08:20:56Z"
+		},
+		{
+			"checksumSHA1": "9t2exgz3OI0iupx2XzTY64dTNTI=",
+			"path": "qiniupkg.com/x/bytes.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "GONAIUPUbGO/RzZ3a3fmoITiJg8=",
+			"path": "qiniupkg.com/x/bytes.v7/seekable",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "CDoWZiG6RWRZrTwZ8XVxyinlWmQ=",
+			"path": "qiniupkg.com/x/ctype.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "TeAfwkuKkelqJ9HJ56Z3sboLxhE=",
+			"path": "qiniupkg.com/x/log.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "H8+RHqplH5pNwKVURcANz3Z7+8Y=",
+			"path": "qiniupkg.com/x/reqid.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "mQp1Si6LmE4NLE5PdFZoBfwRq5E=",
+			"path": "qiniupkg.com/x/rpc.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "A2TChe1xosObvuK6PC8/FQlmeS4=",
+			"path": "qiniupkg.com/x/url.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
+		},
+		{
+			"checksumSHA1": "ZLuJfhm4gcrTdWjJSBjZqH0YUqY=",
+			"path": "qiniupkg.com/x/xlog.v7",
+			"revision": "f512abcf45ab4e2ba0fd4784c57b53d495997d66",
+			"revisionTime": "2015-07-21T03:41:13Z"
 		}
 	],
 	"rootPath": "github.com/flyaways/storage"
