@@ -4,16 +4,16 @@ import (
 	"flag"
 	"os"
 
-	"github.com/flyaways/storage/agent/config"
-	"github.com/flyaways/storage/agent/storage/kdfs"
-	"github.com/flyaways/storage/agent/storage/oss"
-	"github.com/flyaways/storage/agent/storage/posix"
-	"github.com/flyaways/storage/agent/storage/s3"
-	"github.com/flyaways/storage/agent/storage/swift"
-	"github.com/flyaways/storage/agent/util/log"
+	"github.com/flyaways/storage/config"
+	"github.com/flyaways/storage/storage/kdfs"
+	"github.com/flyaways/storage/storage/oss"
+	"github.com/flyaways/storage/storage/posix"
+	"github.com/flyaways/storage/storage/s3"
+	"github.com/flyaways/storage/storage/swift"
+	"github.com/flyaways/storage/util/log"
 )
 
-var configFile = flag.String("config", "agent.toml", "agent config file")
+var configFile = flag.String("config", "storage.toml", "storage config file")
 
 func main() {
 	defer func() {

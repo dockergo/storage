@@ -30,7 +30,7 @@ func DoRequest(httpReq *http.Request) {
 		fmt.Printf("\n%s\n", err.Error())
 	}
 
-	fmt.Printf("[%40s:\t%-50s]\n", tracker.Magenta("status"), tracker.Red("%d", httpRep.StatusCode))
+	fmt.Printf("[%40s:\t%-50s]\n", tracker.Mstoragea("status"), tracker.Red("%d", httpRep.StatusCode))
 
 	body, err := ioutil.ReadAll(httpRep.Body)
 	if err != nil {
@@ -43,11 +43,11 @@ func DoRequest(httpReq *http.Request) {
 
 	for key, value := range httpRep.Header {
 		for _, values := range value {
-			fmt.Printf("[%40s:\t%-50v]\n", tracker.Magenta(key), tracker.Green(values))
+			fmt.Printf("[%40s:\t%-50v]\n", tracker.Mstoragea(key), tracker.Green(values))
 		}
 	}
 
-	fmt.Printf("[%40s:\t%-50s]\n", tracker.Magenta("bodySize"), tracker.Green("%d", len(body)))
-	fmt.Printf("%40s:\n%s\n", tracker.Magenta("body"), tracker.Cyan(string(body)))
+	fmt.Printf("[%40s:\t%-50s]\n", tracker.Mstoragea("bodySize"), tracker.Green("%d", len(body)))
+	fmt.Printf("%40s:\n%s\n", tracker.Mstoragea("body"), tracker.Cyan(string(body)))
 
 }

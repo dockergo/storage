@@ -5,11 +5,11 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/flyaways/storage/agent"
-	"github.com/flyaways/storage/agent/config"
+	"github.com/flyaways/storage"
+	"github.com/flyaways/storage/config"
 )
 
-var configFile = flag.String("config", "agent.toml", "agent config file")
+var configFile = flag.String("config", "storage.toml", "storage config file")
 
 func main() {
 
@@ -27,7 +27,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	server, err := agent.NewServer(cfg)
+	server, err := storage.NewServer(cfg)
 	if err != nil {
 		println(err.Error())
 		os.Exit(1)

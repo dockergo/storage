@@ -284,7 +284,7 @@ class Key(object):
             headers = {}
         else:
             headers = headers.copy()
-        # Overwrite user-supplied user-agent.
+        # Overwrite user-supplied user-storage.
         for header in find_matching_headers('User-Agent', headers):
             del headers[header]
         #headers['User-Agent'] = UserAgent

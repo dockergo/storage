@@ -67,4 +67,4 @@ curl $publicURL/marktwain/goodbye --head -H "X-Auth-Token: $token"
 curl -i $publicURL/marktwain/goodbye -X POST -H "X-Auth-Token: $token" -H "X-Object-Meta-Book: GoodbyeColumbus"
 curl -i $publicURL/marktwain/goodbye -X POST -H "X-Auth-Token: $token" -H "X-Object-Meta-Book: GoodbyeOldFriend"
 
-curl -i -http://10.1.0.220/v1/AUTH_7c9c920f39de4fd8a9bdf807a3f11b5d/container1/bbb -X PUT -T "agent.toml" -H "X-Auth-Token: 1267a227d9994da4a9ea4977a5f5ee04"
+curl -i -http://10.1.0.220/v1/AUTH_7c9c920f39de4fd8a9bdf807a3f11b5d/container1/bbb -X PUT -T "storage.toml" -H "X-Auth-Token: 1267a227d9994da4a9ea4977a5f5ee04"

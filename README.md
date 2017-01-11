@@ -28,10 +28,10 @@
 ## __<font color="LawnGreen">3. Run</font>__
 
 ```sh
- ./docker/bin/agent -config=agent.toml
+ ./docker/bin/storage -config=storage.toml
 ```
 
-## __<font color="Chocolate">4. Test all of agent interface</font>__
+## __<font color="Chocolate">4. Test all of storage interface</font>__
 
 ><font color="Black">Bucket Method:</font>&nbsp;
  __<font color="Green">PUT,GET, HEAD, DELETE</font>__

@@ -12,9 +12,9 @@ test:
 	go test -race ./...
 
 
-.PHONY: agent
-agent:
-	go install -a github.com/flyaways/storage/cmd/agent
+.PHONY: storage
+storage:
+	go install -a github.com/flyaways/storage/cmd/storage
 
 
 
