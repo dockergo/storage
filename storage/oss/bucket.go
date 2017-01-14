@@ -11,7 +11,7 @@ import (
 )
 
 func (ossc *OSS) PutBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -24,7 +24,7 @@ func (ossc *OSS) PutBucket(ctx *gin.Context) {
 }
 
 func (ossc *OSS) PostBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -37,7 +37,7 @@ func (ossc *OSS) PostBucket(ctx *gin.Context) {
 }
 
 func (ossc *OSS) DeleteBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -50,7 +50,7 @@ func (ossc *OSS) DeleteBucket(ctx *gin.Context) {
 }
 
 func (ossc *OSS) HeadBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -75,7 +75,7 @@ func (ossc *OSS) HeadBucket(ctx *gin.Context) {
 }
 
 func (ossc *OSS) GetBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}

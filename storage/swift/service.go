@@ -6,7 +6,7 @@ import (
 )
 
 func (swt *Swift) ListBuckets(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
-	url := buildBucketUrl(swt.config.Storage.Swift.Addr, swt.authAccount, bucket)
+	res, _, _ := protocol.Param(ctx)
+	url := buildBucketUrl(swt.config.Storage.Swift.Addr, swt.authAccount, "")
 	swt.request(nil, "GET", url, res, ctx)
 }

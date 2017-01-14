@@ -77,7 +77,7 @@ func (s *SignAuth) Auth(ctx *gin.Context) {
 	s.context = ctx
 	accessKey, signString := s.getOldSign()
 	if signString == "" || accessKey != s.credential.AccessKey {
-		ctx.AbortWithStatus(errors.SignatureDoesNotMatch.StatusCode)
+		ctx.AbortWithStatus(http.StatusForbidden)
 		result.NewResult(ctx).Error(errors.SignatureDoesNotMatch)
 		log.Error("[credential.AccessKey,accessKey:%s,%s]", s.credential.AccessKey, accessKey)
 		return
@@ -90,7 +90,7 @@ func (s *SignAuth) Auth(ctx *gin.Context) {
 		return
 	}
 	if s.signature != signString {
-		ctx.AbortWithStatus(errors.SignatureDoesNotMatch.StatusCode)
+		ctx.AbortWithStatus(http.StatusForbidden)
 		result.NewResult(ctx).Error(errors.SignatureDoesNotMatch)
 		log.Error("[signature,signString:%s,%s]", s.signature, signString)
 		return

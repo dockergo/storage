@@ -20,7 +20,7 @@ import (
 )
 
 func (c *Qiniu) PutObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -49,7 +49,7 @@ func (c *Qiniu) PutObject(ctx *gin.Context) {
 }
 
 func (c *Qiniu) PostObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParamPost(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -78,7 +78,7 @@ func (c *Qiniu) PostObject(ctx *gin.Context) {
 }
 
 func (c *Qiniu) HeadObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -99,7 +99,7 @@ func (c *Qiniu) HeadObject(ctx *gin.Context) {
 }
 
 func (c *Qiniu) DeleteObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -114,7 +114,7 @@ func (c *Qiniu) DeleteObject(ctx *gin.Context) {
 }
 
 func (c *Qiniu) GetObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -145,7 +145,7 @@ func (c *Qiniu) GetObject(ctx *gin.Context) {
 }
 
 func (c *Qiniu) MoveObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -160,7 +160,7 @@ func (c *Qiniu) MoveObject(ctx *gin.Context) {
 }
 
 func (c *Qiniu) CopyObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}

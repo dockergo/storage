@@ -38,7 +38,7 @@ func (swt *Swift) DeleteObject(ctx *gin.Context) {
 }
 
 func (swt *Swift) object(method string, ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}

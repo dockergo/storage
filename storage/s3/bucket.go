@@ -15,10 +15,7 @@ func (c *S3c) GetBucket(ctx *gin.Context) {
 		log.Error("[listbucket:%s]", err.Error())
 	}
 
-	_, bkt := protocol.GetParamBucket(ctx)
-	if len(bkt) == 0 {
-		return
-	}
+	res, bkt, _ := protocol.Param(ctx)
 
 	for _, bucket := range resp.Buckets {
 		if bkt == bucket.Name {
@@ -31,6 +28,7 @@ func (c *S3c) GetBucket(ctx *gin.Context) {
 				}
 			} else {
 				log.Error("[%s]", err.Error())
+				res.Error(err)
 			}
 		}
 	}
@@ -38,7 +36,7 @@ func (c *S3c) GetBucket(ctx *gin.Context) {
 }
 
 func (c *S3c) PutBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -53,7 +51,7 @@ func (c *S3c) PutBucket(ctx *gin.Context) {
 }
 
 func (c *S3c) HeadBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -75,7 +73,7 @@ func (c *S3c) HeadBucket(ctx *gin.Context) {
 }
 
 func (c *S3c) DeleteBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}

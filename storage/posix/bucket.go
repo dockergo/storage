@@ -16,7 +16,7 @@ import (
 )
 
 func (posix *Posix) GetBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -43,7 +43,7 @@ func (posix *Posix) GetBucket(ctx *gin.Context) {
 }
 
 func (posix *Posix) PutBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -65,7 +65,7 @@ func (posix *Posix) PutBucket(ctx *gin.Context) {
 }
 
 func (posix *Posix) HeadBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}
@@ -80,7 +80,7 @@ func (posix *Posix) HeadBucket(ctx *gin.Context) {
 }
 
 func (posix *Posix) DeleteBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}

@@ -14,7 +14,7 @@ import (
 )
 
 func (c *Qiniu) GetBucket(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}

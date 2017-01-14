@@ -13,7 +13,7 @@ import (
 )
 
 func (c *S3c) PutObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -27,7 +27,7 @@ func (c *S3c) PutObject(ctx *gin.Context) {
 }
 
 func (c *S3c) PostObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParamPost(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -56,7 +56,7 @@ func (c *S3c) upload(ctx *gin.Context, res *result.Result, data []byte, finalkey
 }
 
 func (c *S3c) GetObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -72,7 +72,7 @@ func (c *S3c) GetObject(ctx *gin.Context) {
 }
 
 func (c *S3c) HeadObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -94,7 +94,7 @@ func (c *S3c) HeadObject(ctx *gin.Context) {
 }
 
 func (c *S3c) DeleteObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}

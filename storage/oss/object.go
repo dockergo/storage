@@ -14,7 +14,7 @@ import (
 )
 
 func (ossc *OSS) PutObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -43,7 +43,7 @@ func (ossc *OSS) PutObject(ctx *gin.Context) {
 }
 
 func (ossc *OSS) PostObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParamPost(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -72,7 +72,7 @@ func (ossc *OSS) PostObject(ctx *gin.Context) {
 }
 
 func (ossc *OSS) GetObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -99,7 +99,7 @@ func (ossc *OSS) GetObject(ctx *gin.Context) {
 }
 
 func (ossc *OSS) DeleteObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -117,7 +117,7 @@ func (ossc *OSS) DeleteObject(ctx *gin.Context) {
 }
 
 func (ossc *OSS) HeadObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}

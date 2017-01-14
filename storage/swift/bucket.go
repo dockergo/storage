@@ -30,7 +30,7 @@ func (swt *Swift) DeleteBucket(ctx *gin.Context) {
 }
 
 func (swt *Swift) bucket(method string, ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if len(bucket) == 0 {
 		return
 	}

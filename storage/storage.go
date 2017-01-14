@@ -38,7 +38,7 @@ func NewStorage(config *config.Config) (adapter.Storager, error) {
 	case QINIU:
 		return qiniu.New(config), nil
 	default:
-		log.Error(tracker.Red("[unsupport storage type]"))
-		return nil, fmt.Errorf(tracker.Red("[storage type error]"))
+		log.Error(tracker.Red("[unsupport type]"))
+		return nil, fmt.Errorf(tracker.Red("[type error]"))
 	}
 }

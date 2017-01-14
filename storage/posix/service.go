@@ -22,7 +22,7 @@ func walkDirs(path string) (buckets []string, err error) {
 }
 
 func (posix *Posix) ListBuckets(ctx *gin.Context) {
-	res, bucket := protocol.GetParamBucket(ctx)
+	res, bucket, _ := protocol.Param(ctx)
 	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
 		res.Error(errors.NoSuchBucket)
 		ctx.Status(http.StatusNotFound)

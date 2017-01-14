@@ -20,7 +20,7 @@ import (
 )
 
 func (posix *Posix) PutObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -35,7 +35,7 @@ func (posix *Posix) PutObject(ctx *gin.Context) {
 }
 
 func (posix *Posix) PostObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParamPost(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -83,7 +83,7 @@ func (posix *Posix) uploadObject(ctx *gin.Context, res *result.Result, data []by
 }
 
 func (posix *Posix) GetObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -121,7 +121,7 @@ func (posix *Posix) GetObject(ctx *gin.Context) {
 }
 
 func (posix *Posix) HeadObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
@@ -154,7 +154,7 @@ func (posix *Posix) HeadObject(ctx *gin.Context) {
 }
 
 func (posix *Posix) DeleteObject(ctx *gin.Context) {
-	res, bucket, key := protocol.GetParam(ctx)
+	res, bucket, key := protocol.Param(ctx)
 	if len(bucket) == 0 || len(key) == 0 {
 		return
 	}
