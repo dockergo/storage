@@ -5,11 +5,13 @@ import (
 	"os"
 
 	"github.com/flyaways/storage/config"
-	"github.com/flyaways/storage/storage/kdfs"
+
 	"github.com/flyaways/storage/storage/oss"
 	"github.com/flyaways/storage/storage/posix"
+	"github.com/flyaways/storage/storage/qiniu"
 	"github.com/flyaways/storage/storage/s3"
 	"github.com/flyaways/storage/storage/swift"
+
 	"github.com/flyaways/storage/util/log"
 )
 
@@ -51,16 +53,16 @@ func main() {
 		panic(storages3)
 	}
 
-	storagekdfs := kdfs.New(cfg)
-	if storagekdfs != nil {
-		log.Error("storagekdfs error")
-		panic(storagekdfs)
-	}
-
 	storageswift := swift.New(cfg)
 	if storageswift != nil {
 		log.Error("storageswift error")
 		panic(storageswift)
+	}
+
+	storageqiniu := qiniu.New(cfg)
+	if storageqiniu != nil {
+		log.Error("storageqiniu error")
+		panic(storageqiniu)
 	}
 
 }

@@ -12,7 +12,7 @@ accesskey = "1GL02rRYQxK8s7FQh8dV"
 secketkey = "2IDjaPOpFfkq5Zf9K4tKu8k5AKApY8S8eKV1zsRl"
 
 [storage]
-type = "oss"
+type = "s3"
 
 [storage.swift]
 addr = "http://192.168.20.6/v1"
@@ -22,26 +22,24 @@ username="wps"
 projname="wps"
 password="12345"
 
-[storage.kdfs]
-account = "kso"
-addr = "http://192.168.1.106:8088"
-
 [storage.s3]
+#addr = "http://kss.ksyun.com"
+#accesskey = "lMQTr0hNlMpB0iOk/i+x"
+#secretkey = "D4CsYLs75JcWEjbiI22zR3P7kJ/+5B1qdEje7A7I"
+
 addr = "http://192.168.20.4:8888"
 accesskey = "CUPQ9OHNSEQ6KYDLYNK2"
 secretkey = "jmgkfRgE2IkgKH9gmOoboOanID7SNHQ2yNRHw6GF"
 
 [storage.oss]
 addr = "oss-cn-beijing.aliyuncs.com"
-accesskey = "XXyour accesskeyXX"
-secretkey = "XXyour secretkeyXX"
+accesskey = "LTAIhi5D4D1nAg1g"
+secretkey = "scHgvkfUKwl10I4xRLduWNkQSwyjmr"
 
 [storage.qiniu]
 addr = "xxxx.com2.z0.glb.qiniucdn.com"
 accesskey = "XXyour accesskeyXX"
 secretkey = "XXyour secretkeyXX"
-
-
 
 [storage.posix]
 addr = "/tmp/posix"

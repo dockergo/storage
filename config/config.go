@@ -30,7 +30,6 @@ type StorageConfig struct {
 	OSS   *OSSConfig   `toml:"oss"`
 	Qiniu *QiniuConfig `toml:"qiniu"`
 	Posix *PosixConfig `toml:"posix"`
-	Kdfs  *KdfsConfig  `toml:"kdfs"`
 }
 
 type SwiftConfig struct {
@@ -40,11 +39,6 @@ type SwiftConfig struct {
 	UserName   string `toml:"username"`
 	ProjName   string `toml:"projname"`
 	PassWord   string `toml:"password"`
-}
-
-type KdfsConfig struct {
-	Addr    string `toml:"addr"`
-	Account string `toml:"account"`
 }
 
 type S3Config struct {
@@ -67,9 +61,4 @@ type QiniuConfig struct {
 
 type PosixConfig struct {
 	Addr string `toml:"addr"`
-}
-
-type InitConfig struct {
-	Buckets   []string `toml:"buckets"`
-	UploadDir string   `toml:"uploaddir"`
 }
