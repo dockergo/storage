@@ -15,16 +15,24 @@ func RegisterURLs(app *app.App, router *gin.Engine) {
 	router.Use(middleware.Cors())
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
-	router.Use(middleware.Policy())
 
-	router.OPTIONS("/:bucket", app.OptionsBucket)
-	router.OPTIONS("/:bucket/*key", app.OptionsObject)
-
-	router.Use(middleware.AuthRequired(app.Config.Credential))
+	//noAuth
+	noAuth := router.Group("/:bucket")
+	{
+		noAuth.HEAD("", app.HeadBucket)
+		noAuth.HEAD("/*key", app.HeadObject)
+		router.OPTIONS("/:bucket", app.OptionsBucket)
+		router.OPTIONS("/:bucket/*key", app.OptionsObject)
+	}
 
 	store := sessions.NewCookieStore([]byte("secret"))
-	router.Use(sessions.Sessions("storagesession", store))
-	router.Use(csrf.Middleware(csrf.Options{
+
+	//authRequired
+	authRequired := router.Group("/:bucket")
+
+	authRequired.Use(middleware.AuthRequired(app.Config.Credential))
+	authRequired.Use(sessions.Sessions("storagesession", store))
+	authRequired.Use(csrf.Middleware(csrf.Options{
 		Secret: "storagesecret",
 		ErrorFunc: func(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{
@@ -34,26 +42,34 @@ func RegisterURLs(app *app.App, router *gin.Engine) {
 		},
 	}))
 
-	bucket := router.Group("/:bucket")
 	{
-		bucket.GET("", app.GetBucket)
-		bucket.PUT("", app.PutBucket)
-		bucket.HEAD("", app.HeadBucket)
-		bucket.DELETE("", app.DeleteBucket)
+		authRequired.GET("", app.GetBucket)
+		authRequired.PUT("", app.PutBucket)
+		authRequired.DELETE("", app.DeleteBucket)
+
+		authRequired.PUT("/*key", app.PutObject)
+		authRequired.POST("", app.PostObject)
+		authRequired.GET("/*key", app.GetObject)
+		authRequired.DELETE("/*key", app.DeleteObject)
 	}
 
-	object := router.Group("/:bucket")
-	{
-		object.PUT("/*key", app.PutObject)
-		object.POST("", app.PostObject)
-		object.HEAD("/*key", app.HeadObject)
-		object.GET("/*key", app.GetObject)
-		object.DELETE("/*key", app.DeleteObject)
-	}
-
+	//service
 	service := router.Group("/")
+
+	service.Use(middleware.AuthRequired(app.Config.Credential))
+	service.Use(sessions.Sessions("storagesession", store))
+	service.Use(csrf.Middleware(csrf.Options{
+		Secret: "storagesecret",
+		ErrorFunc: func(c *gin.Context) {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"status": "CSRF token mismatch",
+			})
+			c.Abort()
+		},
+	}))
+
 	{
-		service.GET("", app.Service)
+		service.GET("", app.ListBuckets)
 	}
 
 }

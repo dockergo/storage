@@ -1,11 +1,24 @@
-package exec
+package util
 
 import (
 	"io/ioutil"
 	"os/exec"
+	"runtime"
 
-	"github.com/flyaways/storage/util/log/log"
+	"github.com/flyaways/storage/util/log"
+	"github.com/flyaways/tracker"
 )
+
+func Details() {
+	for skip := 0; true; skip++ {
+		pc, file, line, ok := runtime.Caller(skip)
+		if ok {
+			log.Warn(tracker.Blue("[%d\t%s\t%d\t%s]"), pc, file, line, runtime.FuncForPC(pc).Name())
+		} else {
+			break
+		}
+	}
+}
 
 func Exec(name string, arg ...string) {
 	defer func() {

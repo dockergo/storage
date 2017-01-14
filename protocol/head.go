@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/flyaways/storage/constant"
 	errs "github.com/flyaways/storage/errors"
@@ -15,7 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func PostHeadchecker(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
+func PostHeader(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
 	theReader, _, err := ctx.Request.FormFile("file")
 	if err != nil {
 		log.Error("[object.POST read multipart error:%s]", err.Error())
@@ -23,63 +22,37 @@ func PostHeadchecker(ctx *gin.Context, res *result.Result, bucket, key string) (
 		return nil, "", err
 	}
 
-	rawRequestdata, err := ioutil.ReadAll(theReader)
+	data, err := ioutil.ReadAll(theReader)
 	if err != nil {
-		log.Error("[object.POST read multipart to bytes error:%s]", err.Error())
+		log.Error("[PostHeader:%s]", err.Error())
 		res.Error(errs.InternalError)
 		return nil, "", err
 	}
 
-	contentLength := ctx.Request.Header.Get(constant.ContentLength)
-	if contentLength == "" || contentLength == "0" {
-		log.Error("[object.POST content length is empty]")
-		res.Error(errs.MissingContentLength)
-		return rawRequestdata, "", errors.New("MissingContentLength")
-	}
-
-	if ctx.Request.Header.Get(constant.ContentMD5) != "" &&
-		ctx.Request.Header.Get(constant.ContentMD5) != util.GetBase64Md5(rawRequestdata) {
-		log.Error("[object.POST MD5DoesNotMatch]")
-		res.Error(errs.MD5DoesNotMatch)
-		return rawRequestdata, "", errors.New("MD5DoesNotMatch")
-	}
-
-	finalkey := ComputeKey(ctx, key, rawRequestdata)
-	return rawRequestdata, finalkey, nil
+	key = computeKey(ctx, key, data)
+	return data, key, nil
 }
 
-func PutHeadchecker(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
+func PutHeader(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
 	if ctx.Request.Body == nil {
 		log.Error("[object.PUT body is nil]")
-		res.Error(errs.ReqBodyNil)
+		res.Error(errs.FileEmpty)
 		return nil, "", errors.New("ReqBodyNil")
 	}
 
 	defer ctx.Request.Body.Close()
-	rawRequestdata, err := ioutil.ReadAll(ctx.Request.Body)
+	data, err := ioutil.ReadAll(ctx.Request.Body)
 	if err != nil {
-		log.Error("[object.POST read multipart to bytes error:%s]", err.Error())
-		//res.Error(errs.PermissionDenied)
+		log.Error("[PutHeader:%s]", err.Error())
+		res.Error(errs.InternalError)
 		return nil, "", err
 	}
-	contentLength := ctx.Request.Header.Get(constant.ContentLength)
-	if contentLength == "" || contentLength == "0" {
-		log.Error("[object.PUT content length is empty]")
-		res.Error(errs.MissingContentLength)
-		return rawRequestdata, "", errors.New("MissingContentLength")
-	}
 
-	if ctx.Request.Header.Get(constant.ContentMD5) != "" &&
-		ctx.Request.Header.Get(constant.ContentMD5) != util.GetBase64Md5(rawRequestdata) {
-		log.Error("[MD5DoesNotMatch:%s]", err.Error())
-		res.Error(errs.MD5DoesNotMatch)
-		return rawRequestdata, "", errors.New("MD5DoesNotMatch")
-	}
-	finalkey := ComputeKey(ctx, key, rawRequestdata)
-	return rawRequestdata, finalkey, nil
+	key = computeKey(ctx, key, data)
+	return data, key, nil
 }
 
-func GetCkecker(ctx *gin.Context, content []byte, res *result.Result) {
+func GetHeader(ctx *gin.Context, content []byte, res *result.Result) {
 	objContentLength := ctx.Request.Header.Get(constant.ContentLength)
 	if objContentLength == "" {
 		objContentLength = "0"
@@ -121,24 +94,6 @@ func GetCkecker(ctx *gin.Context, content []byte, res *result.Result) {
 	return
 }
 
-func HeadChecker(ctx *gin.Context, res *result.Result, objEtag, lastModified string) {
-
-	modtime, err := time.Parse(constant.TimeFormat, lastModified)
-	if err != nil {
-		log.Error("[obj.HEAD object LastModified error:%s]", err.Error())
-		res.Error(err)
-		return
-	}
-
-	done, err := CheckModSince(ctx, modtime)
-	if err != nil || done {
-		log.Error("[obj.HEAD object modSince error:%s]", err.Error())
-		res.Error(err)
-		return
-	}
-
-	ctx.Header(constant.LastModified, lastModified)
-	ctx.Header(constant.Created, lastModified)
-	ctx.Header(constant.ETag, objEtag)
-	ctx.Status(http.StatusOK)
+func computeKey(ctx *gin.Context, key string, data []byte) string {
+	return util.GetSha1Hex(data)
 }

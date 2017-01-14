@@ -38,7 +38,7 @@ func DoRequest(httpReq *http.Request) {
 	}
 
 	if httpRep.Header.Get(Newfilename) != "" {
-		*newName = httpRep.Header.Get(Newfilename)
+		*reqkey = httpRep.Header.Get(Newfilename)
 	}
 
 	for key, value := range httpRep.Header {
@@ -48,6 +48,11 @@ func DoRequest(httpReq *http.Request) {
 	}
 
 	fmt.Printf("[%40s:\t%-50s]\n", tracker.Mstoragea("bodySize"), tracker.Green("%d", len(body)))
-	fmt.Printf("%40s:\n%s\n", tracker.Mstoragea("body"), tracker.Cyan(string(body)))
+
+	if *out == "std" {
+		fmt.Printf("%40s:\n%s\n", tracker.Mstoragea("body"), tracker.Cyan(string(body)))
+	} else {
+		ioutil.WriteFile(*reqkey, body, 0666)
+	}
 
 }

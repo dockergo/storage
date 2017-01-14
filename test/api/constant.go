@@ -18,5 +18,7 @@ var content = flag.String("ctx", "Stand on the shoulders of giants", "PUT method
 var curfile = flag.String("curf", "curfile", "current file name")
 
 var bucketName = flag.String("bktName", "flyaways", "bucket Name")
-var key = flag.String("key", "keydefault", "key")
-var newName = flag.String("newName", "newName", "newfile Name")
+var upkey = flag.String("upkey", "keydefault", "key")
+var reqkey = flag.String("reqkey", "newName", "newfile Name")
+
+var out = flag.String("out", "std", "newfile Name")

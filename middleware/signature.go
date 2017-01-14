@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
 	"sort"
 	"strconv"
@@ -10,7 +9,6 @@ import (
 	"time"
 
 	"github.com/flyaways/storage/config"
-	"github.com/flyaways/storage/constant"
 	errors "github.com/flyaways/storage/errors"
 	"github.com/flyaways/storage/result"
 	"github.com/flyaways/storage/util"
@@ -76,19 +74,6 @@ var signQuerys = map[string]bool{
 }
 
 func (s *SignAuth) Auth(ctx *gin.Context) {
-	if ctx.Request.Method == "GET" {
-		key := ctx.Param("key")
-		policy, exits := ctx.Get(constant.Policy)
-		if exits {
-			base, err := strconv.ParseInt(fmt.Sprintf("%d", policy), 10, 64)
-			if err == nil {
-				if base%constant.Auth == 1 && len(key) > 0 {
-					return
-				}
-			}
-		}
-	}
-
 	s.context = ctx
 	accessKey, signString := s.getOldSign()
 	if signString == "" || accessKey != s.credential.AccessKey {

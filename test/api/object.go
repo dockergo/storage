@@ -55,7 +55,7 @@ func ObjectPost() {
 }
 
 func ObjectPut() {
-	urlStr := fmt.Sprintf("http://%s/%s/%s", *addr, *bucketName, *key)
+	urlStr := fmt.Sprintf("http://%s/%s/%s", *addr, *bucketName, *upkey)
 	fmt.Printf("\n[%40s:\t%-50s]\n", tracker.Blue("OBJECT-%s-URL", "PUT"), tracker.Yellow(urlStr))
 
 	httpReq, _ := http.NewRequest("PUT", urlStr, strings.NewReader(*content))
@@ -68,7 +68,7 @@ func ObjectPut() {
 		"",
 		contentType,
 		expiresTime,
-		"/"+*bucketName+"/"+*key, *secretKey, map[string]string{})
+		"/"+*bucketName+"/"+*upkey, *secretKey, map[string]string{})
 
 	autoString := fmt.Sprintf("KSS %s:%s", *accessKey, sign)
 	httpReq.Header["authorization"] = []string{autoString}

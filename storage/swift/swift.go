@@ -122,11 +122,11 @@ func buildAuthReq(config *config.Config) (string, []byte, error) {
 }
 
 func (swt *Swift) request(data io.Reader, method, url string, res *result.Result, ctx *gin.Context) {
-	httpResponse, err := doRequest(method, url, swt.authToken, data, swt.httpClient)
+	httpRep, err := doRequest(method, url, swt.authToken, data, swt.httpClient)
 	if err != nil {
 		err = swt.Auth()
 		if err == nil {
-			httpResponse, err = doRequest(method, url, swt.authToken, data, swt.httpClient)
+			httpRep, err = doRequest(method, url, swt.authToken, data, swt.httpClient)
 		}
 	}
 
@@ -135,15 +135,21 @@ func (swt *Swift) request(data io.Reader, method, url string, res *result.Result
 		res.Error(errs.InvalidArgument)
 	}
 
-	ctx.Status(httpResponse.StatusCode)
+	for key, value := range httpRep.Header {
+		for _, values := range value {
+			ctx.Header(key, values)
+		}
+	}
+
+	ctx.Status(httpRep.StatusCode)
 }
 
 func (swt *Swift) bucketrequest(data io.Reader, method, url string, res *result.Result, ctx *gin.Context) {
-	httpResponse, err := doRequest(method, url, swt.authToken, data, swt.httpClient)
+	httpRep, err := doRequest(method, url, swt.authToken, data, swt.httpClient)
 	if err != nil {
 		err = swt.Auth()
 		if err == nil {
-			httpResponse, err = doRequest(method, url, swt.authToken, data, swt.httpClient)
+			httpRep, err = doRequest(method, url, swt.authToken, data, swt.httpClient)
 		}
 	}
 
@@ -152,7 +158,13 @@ func (swt *Swift) bucketrequest(data io.Reader, method, url string, res *result.
 		res.Error(errs.InvalidArgument)
 	}
 
-	ctx.Status(httpResponse.StatusCode)
-	content, _ := ioutil.ReadAll(httpResponse.Body)
-	ctx.XML(httpResponse.StatusCode, content)
+	for key, value := range httpRep.Header {
+		for _, values := range value {
+			ctx.Header(key, values)
+		}
+	}
+
+	ctx.Status(httpRep.StatusCode)
+	content, _ := ioutil.ReadAll(httpRep.Body)
+	ctx.XML(httpRep.StatusCode, content)
 }

@@ -13,8 +13,8 @@ ak = 'CUPQ9OHNSEQ6KYDLYNK2'
 sk = 'jmgkfRgE2IkgKH9gmOoboOanID7SNHQ2yNRHw6GF'
 conn = Connection(ak, sk, '127.0.0.1:20808')
 #conn = Connection(ak, sk)
-test_bucket = 'sdktest123'
-test_key = 'test_key'
+test_bucket = 'wpsfile'
+test_key = '19dece481b8ade54968c5626dba7169a792e8e81'
 
 #------------------------------------Auth relative test------------------------------
 class TestAuthToken(unittest.TestCase):

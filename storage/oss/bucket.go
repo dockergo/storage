@@ -3,6 +3,7 @@ package oss
 import (
 	"net/http"
 
+	"github.com/flyaways/storage/constant"
 	"github.com/flyaways/storage/errors"
 	"github.com/flyaways/storage/protocol"
 	"github.com/flyaways/storage/util/log"
@@ -54,11 +55,23 @@ func (ossc *OSS) HeadBucket(ctx *gin.Context) {
 		return
 	}
 
-	status, err := ossc.client.IsBucketExist(bucket)
-	if err != nil || !status {
+	meta, err := ossc.client.GetBucketInfo(bucket)
+	if err != nil {
 		log.Error("[%s:%s]", ossc.Name, err.Error())
 		res.Error(errors.NoSuchBucket)
 	}
+
+	ctx.Header("Local", meta.XMLName.Local)
+	ctx.Header("Space", meta.XMLName.Space)
+	ctx.Header("Name", meta.BucketInfo.Name)
+	ctx.Header("Location", meta.BucketInfo.Location)
+	ctx.Header("CreationDate", meta.BucketInfo.CreationDate.Format(constant.TimeFormat))
+	ctx.Header("ExtranetEndpoint", meta.BucketInfo.ExtranetEndpoint)
+	ctx.Header("IntranetEndpoint", meta.BucketInfo.IntranetEndpoint)
+	ctx.Header("ACL", meta.BucketInfo.ACL)
+	ctx.Header("ID", meta.BucketInfo.Owner.ID)
+	ctx.Header("DisplayName", meta.BucketInfo.Owner.DisplayName)
+
 }
 
 func (ossc *OSS) GetBucket(ctx *gin.Context) {

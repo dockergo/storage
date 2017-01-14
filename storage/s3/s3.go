@@ -8,14 +8,14 @@ import (
 	"github.com/mitchellh/goamz/s3"
 )
 
-type s3c struct {
+type S3c struct {
 	adapter.StorageAdapter
 	config *config.Config
 	client *s3.S3
 }
 
-func New(config *config.Config) *s3c {
-	c := new(s3c)
+func New(config *config.Config) *S3c {
+	c := new(S3c)
 	c.config = config
 	c.Name = "s3"
 

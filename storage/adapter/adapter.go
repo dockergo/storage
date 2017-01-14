@@ -1,16 +1,9 @@
 package adapter
 
-import (
-	"runtime"
-
-	"github.com/gin-gonic/gin"
-
-	"github.com/flyaways/storage/util/log"
-	"github.com/flyaways/tracker"
-)
+import "github.com/gin-gonic/gin"
 
 type Services interface {
-	Service(ctx *gin.Context)
+	ListBuckets(ctx *gin.Context)
 }
 
 type Objecter interface {
@@ -19,6 +12,8 @@ type Objecter interface {
 	GetObject(ctx *gin.Context)
 	HeadObject(ctx *gin.Context)
 	DeleteObject(ctx *gin.Context)
+	MoveObject(ctx *gin.Context)
+	CopyObject(ctx *gin.Context)
 	OptionsObject(ctx *gin.Context)
 }
 
@@ -38,15 +33,4 @@ type Storager interface {
 
 type StorageAdapter struct {
 	Name string
-}
-
-func Details() {
-	for skip := 0; true; skip++ {
-		pc, file, line, ok := runtime.Caller(skip)
-		if ok {
-			log.Warn(tracker.Blue("[%d\t%s\t%d\t%s]"), pc, file, line, runtime.FuncForPC(pc).Name())
-		} else {
-			break
-		}
-	}
 }

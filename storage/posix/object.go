@@ -9,6 +9,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"fmt"
+
 	"github.com/flyaways/storage/constant"
 	"github.com/flyaways/storage/errors"
 	"github.com/flyaways/storage/protocol"
@@ -23,12 +25,12 @@ func (posix *Posix) PutObject(ctx *gin.Context) {
 		return
 	}
 
-	rawRequestdata, finalkey, err := protocol.PutHeadchecker(ctx, res, bucket, key)
+	data, finalkey, err := protocol.PutHeader(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
 
-	posix.uploadObject(ctx, res, rawRequestdata, finalkey, bucket)
+	posix.uploadObject(ctx, res, data, finalkey, bucket)
 	return
 }
 
@@ -38,16 +40,16 @@ func (posix *Posix) PostObject(ctx *gin.Context) {
 		return
 	}
 
-	rawRequestdata, finalkey, err := protocol.PostHeadchecker(ctx, res, bucket, key)
+	data, finalkey, err := protocol.PostHeader(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
 
-	posix.uploadObject(ctx, res, rawRequestdata, finalkey, bucket)
+	posix.uploadObject(ctx, res, data, finalkey, bucket)
 	return
 }
 
-func (posix *Posix) uploadObject(ctx *gin.Context, res *result.Result, rawRequestdata []byte, finalkey, bucket string) {
+func (posix *Posix) uploadObject(ctx *gin.Context, res *result.Result, data []byte, finalkey, bucket string) {
 	err := os.MkdirAll(posix.getBucketPath(bucket), os.ModePerm)
 	if err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
@@ -66,13 +68,13 @@ func (posix *Posix) uploadObject(ctx *gin.Context, res *result.Result, rawReques
 		return
 	}
 
-	if err = ioutil.WriteFile(filename, rawRequestdata, 0666); err != nil {
+	if err = ioutil.WriteFile(filename, data, 0666); err != nil {
 		log.Error("[%s:%s]", posix.Name, err.Error())
 		res.Error(errors.NoSuchKey)
 		return
 	}
 
-	ctx.Header(constant.ETag, util.GetETagValue(rawRequestdata))
+	ctx.Header(constant.ETag, util.GetETagValue(data))
 	ctx.Header(constant.NewFileName, finalkey)
 	ctx.Status(http.StatusOK)
 	ctx.JSON(http.StatusOK, gin.H{constant.NewFileName: finalkey})
@@ -105,7 +107,16 @@ func (posix *Posix) GetObject(ctx *gin.Context) {
 		return
 	}
 
-	protocol.GetCkecker(ctx, content, res)
+	fileinfo, err := os.Stat(filename)
+	if err != nil {
+		log.Error("[%s:%s]", posix.Name, err.Error())
+		res.Error(errors.NoSuchKey)
+		return
+	} else {
+		ctx.Header(constant.ContentLength, strconv.FormatInt(fileinfo.Size(), 36))
+		ctx.Header(constant.LastModified, fileinfo.ModTime().Format(constant.TimeFormat))
+	}
+	protocol.GetHeader(ctx, content, res)
 	return
 }
 
@@ -133,25 +144,12 @@ func (posix *Posix) HeadObject(ctx *gin.Context) {
 		log.Error("[%s:%s]", posix.Name, err.Error())
 		res.Error(errors.NoSuchKey)
 		return
+	} else {
+		ctx.Header(constant.IsDir, fmt.Sprintf("%t", fileinfo.IsDir()))
+		ctx.Header(constant.Mode, fmt.Sprintf("%d", fileinfo.Mode()))
+		ctx.Header(constant.ContentLength, strconv.FormatInt(fileinfo.Size(), 10))
+		ctx.Header(constant.LastModified, fileinfo.ModTime().Format(constant.TimeFormat))
 	}
-
-	//no check
-	objEtag := ctx.Request.Header.Get(constant.ETag)
-	if protocol.CheckETag(ctx, objEtag) {
-		log.Error("[%s:CheckETag]")
-		res.Error(errors.NoSuchKey)
-		return
-	}
-
-	lastModified := fileinfo.ModTime().Format(constant.TimeFormat)
-
-	ctx.Header(constant.ContentLength, strconv.FormatInt(fileinfo.Size(), 10))
-	if fileinfo.Size() <= 0 {
-		ctx.Header(constant.ContentLength, "0")
-		ctx.Header(constant.AcceptRanges, "bytes")
-	}
-
-	protocol.HeadChecker(ctx, res, objEtag, lastModified)
 	return
 }
 

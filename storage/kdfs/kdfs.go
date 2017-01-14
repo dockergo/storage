@@ -55,6 +55,12 @@ func (kfs *Kdfs) bucketrequest(data io.Reader, method, url string, res *result.R
 		res.Error(err)
 	}
 
+	for key, value := range httpResp.Header {
+		for _, values := range value {
+			ctx.Header(key, values)
+		}
+	}
+
 	ctx.Status(httpResp.StatusCode)
 	content, _ := ioutil.ReadAll(httpResp.Body)
 	ctx.XML(httpResp.StatusCode, content)
@@ -65,6 +71,12 @@ func (kfs *Kdfs) request(data io.Reader, method, url string, res *result.Result,
 	if err != nil {
 		log.Error("[%s:%s]", kfs.Name, err.Error())
 		res.Error(err)
+	}
+
+	for key, value := range httpResp.Header {
+		for _, values := range value {
+			ctx.Header(key, values)
+		}
 	}
 
 	ctx.Status(httpResp.StatusCode)

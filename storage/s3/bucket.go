@@ -9,7 +9,7 @@ import (
 	"github.com/mitchellh/goamz/s3"
 )
 
-func (c *s3c) GetBucket(ctx *gin.Context) {
+func (c *S3c) GetBucket(ctx *gin.Context) {
 	resp, err := c.client.ListBuckets()
 	if err != nil {
 		log.Error("[listbucket:%s]", err.Error())
@@ -37,7 +37,7 @@ func (c *s3c) GetBucket(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 }
 
-func (c *s3c) PutBucket(ctx *gin.Context) {
+func (c *S3c) PutBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
 		return
@@ -52,7 +52,7 @@ func (c *s3c) PutBucket(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 }
 
-func (c *s3c) HeadBucket(ctx *gin.Context) {
+func (c *S3c) HeadBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
 		return
@@ -65,10 +65,16 @@ func (c *s3c) HeadBucket(ctx *gin.Context) {
 		return
 	}
 
+	for key, value := range resp.Header {
+		for _, values := range value {
+			ctx.Header(key, values)
+		}
+	}
+
 	ctx.Status(resp.StatusCode)
 }
 
-func (c *s3c) DeleteBucket(ctx *gin.Context) {
+func (c *S3c) DeleteBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if len(bucket) == 0 {
 		return

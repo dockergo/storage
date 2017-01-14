@@ -36,5 +36,12 @@ addr = "oss-cn-beijing.aliyuncs.com"
 accesskey = "XXyour accesskeyXX"
 secretkey = "XXyour secretkeyXX"
 
+[storage.qiniu]
+addr = "xxxx.com2.z0.glb.qiniucdn.com"
+accesskey = "XXyour accesskeyXX"
+secretkey = "XXyour secretkeyXX"
+
+
+
 [storage.posix]
 addr = "/tmp/posix"

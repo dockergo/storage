@@ -5,7 +5,6 @@ type Config struct {
 	Logs       *LogsConfig       `toml:"logs"`
 	Credential *CredentialConfig `toml:"credential"`
 	Storage    *StorageConfig    `toml:"storage"`
-	Init       *InitConfig       `toml:"init"`
 }
 
 type HTTPConfig struct {
@@ -29,6 +28,7 @@ type StorageConfig struct {
 	Swift *SwiftConfig `toml:"swift"`
 	S3    *S3Config    `toml:"s3"`
 	OSS   *OSSConfig   `toml:"oss"`
+	Qiniu *QiniuConfig `toml:"qiniu"`
 	Posix *PosixConfig `toml:"posix"`
 	Kdfs  *KdfsConfig  `toml:"kdfs"`
 }
@@ -54,6 +54,12 @@ type S3Config struct {
 }
 
 type OSSConfig struct {
+	Addr      string `toml:"addr"`
+	AccessKey string `toml:"accesskey"`
+	SecretKey string `toml:"secretkey"`
+}
+
+type QiniuConfig struct {
 	Addr      string `toml:"addr"`
 	AccessKey string `toml:"accesskey"`
 	SecretKey string `toml:"secretkey"`

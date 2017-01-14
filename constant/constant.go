@@ -37,10 +37,11 @@ const (
 	AcceptRanges      = "Accept-Ranges"
 	NewFileNameInBody = "x-kss-newfilename-in-body"
 
-	Policy = "StagePolicy"
-)
+	Hash     = "Hash"
+	EndUser  = "EndUser"
+	MimeType = "MimeType"
+	Size     = "Size"
 
-const (
-	Auth = 4
-	Key  = 8
+	Mode  = "Mode"
+	IsDir = "IsDir"
 )

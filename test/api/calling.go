@@ -3,17 +3,17 @@ package api_test
 func MatchObject(method string) {
 	switch method {
 	case "GET":
-		Object(method, *newName)
+		Object(method, *reqkey)
 	case "DELETE":
-		Object(method, *newName)
+		Object(method, *reqkey)
 	case "PUT":
 		ObjectPut()
 	case "POST":
 		ObjectPost()
 	case "HEAD":
-		Object(method, *newName)
+		Object(method, *reqkey)
 	case "OPTIONS":
-		Object(method, *newName)
+		Object(method, *reqkey)
 
 	default:
 

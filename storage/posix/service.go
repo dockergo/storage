@@ -21,7 +21,7 @@ func walkDirs(path string) (buckets []string, err error) {
 	return buckets, err
 }
 
-func (posix *Posix) Service(ctx *gin.Context) {
+func (posix *Posix) ListBuckets(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
 	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
 		res.Error(errors.NoSuchBucket)

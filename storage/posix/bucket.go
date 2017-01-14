@@ -1,36 +1,19 @@
 package posix
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/flyaways/storage/constant"
 	"github.com/flyaways/storage/errors"
 	"github.com/flyaways/storage/protocol"
 	"github.com/flyaways/storage/util/log"
 )
-
-func walkDir(dirPth string) (files []os.FileInfo, filenames []string, err error) {
-	files = make([]os.FileInfo, 0, 30)
-	filenames = make([]string, 0, 30)
-	err = filepath.Walk(dirPth, func(filename string, fi os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if fi.IsDir() {
-			return nil
-		}
-		fi.Name()
-		files = append(files, fi)
-		filenames = append(filenames, filename)
-		return nil
-	})
-
-	return files, filenames, err
-}
 
 func (posix *Posix) GetBucket(ctx *gin.Context) {
 	res, bucket := protocol.GetParamBucket(ctx)
@@ -51,8 +34,10 @@ func (posix *Posix) GetBucket(ctx *gin.Context) {
 	lens := len(posix.Config.Storage.Posix.Addr) + len(bucket) + 2
 	for index, key := range keys {
 		ctx.JSON(http.StatusOK, gin.H{"Key": filenames[index][lens:len(filenames[index])],
-			"LastModified": key.ModTime(),
-			"Size":         key.Size()})
+			constant.LastModified: key.ModTime().Format(constant.TimeFormat),
+			constant.Size:         strconv.FormatInt(key.Size(), 10),
+			constant.Mode:         fmt.Sprintf("%d", key.Mode()),
+			constant.IsDir:        fmt.Sprintf("%t", key.IsDir())})
 	}
 	ctx.Status(http.StatusOK)
 }

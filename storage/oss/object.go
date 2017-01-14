@@ -2,7 +2,6 @@ package oss
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -20,7 +19,7 @@ func (ossc *OSS) PutObject(ctx *gin.Context) {
 		return
 	}
 
-	data, key, err := protocol.PutHeadchecker(ctx, res, bucket, key)
+	data, key, err := protocol.PutHeader(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
@@ -49,7 +48,7 @@ func (ossc *OSS) PostObject(ctx *gin.Context) {
 		return
 	}
 
-	data, key, err := protocol.PostHeadchecker(ctx, res, bucket, key)
+	data, key, err := protocol.PostHeader(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
@@ -89,13 +88,14 @@ func (ossc *OSS) GetObject(ctx *gin.Context) {
 		log.Error("[%s:%s]", ossc.Name, err.Error())
 		res.Error(errors.NoSuchBucket)
 	}
+
 	data, err := ioutil.ReadAll(body)
 	if err != nil {
 		log.Error("[%s:%s]", ossc.Name, err.Error())
 		res.Error(errors.UnSupportError)
 	}
-	body.Close()
-	fmt.Println("data:", string(data))
+	defer body.Close()
+	protocol.GetHeader(ctx, data, res)
 }
 
 func (ossc *OSS) DeleteObject(ctx *gin.Context) {
@@ -134,13 +134,10 @@ func (ossc *OSS) HeadObject(ctx *gin.Context) {
 		res.Error(errors.UnSupportError)
 	}
 
-	objEtag := header.Get(constant.ETag)
-	if protocol.CheckETag(ctx, objEtag) {
-		log.Error("[%s:%s]", ossc.Name, err.Error())
-		res.Error(errors.UnSupportError)
-		return
+	for key, value := range header {
+		for _, values := range value {
+			ctx.Header(key, values)
+		}
 	}
-	objLastModified := header.Get(constant.LastModified)
-	protocol.HeadChecker(ctx, res, objEtag, objLastModified)
 
 }

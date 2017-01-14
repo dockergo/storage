@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (c *s3c) Service(ctx *gin.Context) {
+func (c *S3c) ListBuckets(ctx *gin.Context) {
 	resp, err := c.client.ListBuckets()
 	if err != nil {
 		log.Error("[listbucket:%s]", err.Error())

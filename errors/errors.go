@@ -16,7 +16,7 @@ func NewError(code, message string, httpCode int) *Error {
 }
 
 func (e *Error) Error() string {
-	return fmt.Sprintf("<Code>%s</Code>\n<Message>%s</Message>", e.Code, e.Message)
+	return fmt.Sprintf("<Reply><Code>%s</Code>\n<Status>%s</Status>\n<Message>%s</Message>\n</Reply>", e.Code, e.StatusCode, e.Message)
 }
 
 var (

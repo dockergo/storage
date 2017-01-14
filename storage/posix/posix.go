@@ -46,3 +46,22 @@ func (posix *Posix) FileChecker(filepath string) *errors.Error {
 func (posix *Posix) getBucketPath(bucket string) string {
 	return filepath.Join(posix.Config.Storage.Posix.Addr, bucket)
 }
+
+func walkDir(dirPth string) (files []os.FileInfo, filenames []string, err error) {
+	files = make([]os.FileInfo, 0, 30)
+	filenames = make([]string, 0, 30)
+	err = filepath.Walk(dirPth, func(filename string, fi os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if fi.IsDir() {
+			return nil
+		}
+		fi.Name()
+		files = append(files, fi)
+		filenames = append(filenames, filename)
+		return nil
+	})
+
+	return files, filenames, err
+}

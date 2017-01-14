@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (ossc *OSS) Service(ctx *gin.Context) {
+func (ossc *OSS) ListBuckets(ctx *gin.Context) {
 	lsRes, err := ossc.client.ListBuckets()
 	if err != nil {
 		log.Error("[%s:%s]", ossc.Name, err.Error())
