@@ -33,7 +33,7 @@ func (c *Qiniu) PutObject(ctx *gin.Context) {
 	token := c.client.MakeUptoken(policy)
 	uploader := kodocli.NewUploader(0, nil)
 
-	data, key, err := protocol.PutHeader(ctx, res, bucket, key)
+	data, key, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
@@ -62,7 +62,7 @@ func (c *Qiniu) PostObject(ctx *gin.Context) {
 	token := c.client.MakeUptoken(policy)
 	uploader := kodocli.NewUploader(0, nil)
 
-	data, key, err := protocol.PutHeader(ctx, res, bucket, key)
+	data, key, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}

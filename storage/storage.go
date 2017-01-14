@@ -24,7 +24,7 @@ const (
 	QINIU = "qiniu"
 )
 
-func NewStorage(config *config.Config) (adapter.Storager, error) {
+func New(config *config.Config) (adapter.Storager, error) {
 	log.Info("[storage-type:%s]", tracker.Yellow(config.Storage.Type))
 	switch strings.ToLower(config.Storage.Type) {
 	case SWIFT:

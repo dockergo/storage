@@ -1,8 +1,8 @@
 package reqid
 
 import (
-	"encoding/base64"
 	"encoding/binary"
+	"encoding/base64"
 	"net/http"
 	"time"
 
@@ -49,3 +49,4 @@ func FromContext(ctx Context) (reqid string, ok bool) {
 }
 
 // --------------------------------------------------------------------
+

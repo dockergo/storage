@@ -27,7 +27,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	server, err := storage.NewServer(cfg)
+	server, err := storage.New(cfg)
 	if err != nil {
 		println(err.Error())
 		os.Exit(1)

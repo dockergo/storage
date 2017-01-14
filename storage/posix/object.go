@@ -25,7 +25,7 @@ func (posix *Posix) PutObject(ctx *gin.Context) {
 		return
 	}
 
-	data, finalkey, err := protocol.PutHeader(ctx, res, bucket, key)
+	data, finalkey, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
@@ -40,7 +40,7 @@ func (posix *Posix) PostObject(ctx *gin.Context) {
 		return
 	}
 
-	data, finalkey, err := protocol.PostHeader(ctx, res, bucket, key)
+	data, finalkey, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}

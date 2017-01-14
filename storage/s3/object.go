@@ -18,7 +18,7 @@ func (c *S3c) PutObject(ctx *gin.Context) {
 		return
 	}
 
-	data, finalkey, err := protocol.PutHeader(ctx, res, bucket, key)
+	data, finalkey, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
@@ -32,7 +32,7 @@ func (c *S3c) PostObject(ctx *gin.Context) {
 		return
 	}
 
-	data, finalkey, err := protocol.PostHeader(ctx, res, bucket, key)
+	data, finalkey, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}

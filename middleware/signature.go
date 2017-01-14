@@ -26,7 +26,7 @@ type SignAuth struct {
 	signature         string
 }
 
-func AuthRequired(credential *config.CredentialConfig) gin.HandlerFunc {
+func Authority(credential *config.CredentialConfig) gin.HandlerFunc {
 	return (&SignAuth{credential: credential}).Auth
 }
 

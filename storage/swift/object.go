@@ -46,9 +46,9 @@ func (swt *Swift) object(method string, ctx *gin.Context) {
 	var data []byte
 	var err error
 	if method == "PUT" {
-		data, key, err = protocol.PutHeader(ctx, res, bucket, key)
+		data, key, err = protocol.Header(ctx, res, bucket, key)
 	} else if method == "POST" {
-		data, key, err = protocol.PostHeader(ctx, res, bucket, key)
+		data, key, err = protocol.Header(ctx, res, bucket, key)
 		if err != nil {
 			log.Error("[object.POST read multipart error:%s]", err.Error())
 			res.Error(errors.InternalError)

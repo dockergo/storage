@@ -19,7 +19,7 @@ func (ossc *OSS) PutObject(ctx *gin.Context) {
 		return
 	}
 
-	data, key, err := protocol.PutHeader(ctx, res, bucket, key)
+	data, key, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}
@@ -48,7 +48,7 @@ func (ossc *OSS) PostObject(ctx *gin.Context) {
 		return
 	}
 
-	data, key, err := protocol.PostHeader(ctx, res, bucket, key)
+	data, key, err := protocol.Header(ctx, res, bucket, key)
 	if err != nil {
 		return
 	}

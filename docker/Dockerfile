@@ -1,10 +1,10 @@
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER flyaways<meagleglass@gmail.com>
 
-ADD ./need /go
-COPY ./bin/storage /go
-RUN chmod +x /go/start.sh /wpsep/storage/storage
+ADD ./go /go
+COPY ./bin/agent /go
+RUN chmod +x /go/start.sh /go/agent
 
 EXPOSE 8080
 
-ENTRYPOINT ["/wpsep/storage/start.sh"]
+ENTRYPOINT ["/go/start.sh"]

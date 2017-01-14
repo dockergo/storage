@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"io"
+
 	"github.com/flyaways/storage/constant"
 	errs "github.com/flyaways/storage/errors"
 	"github.com/flyaways/storage/result"
@@ -14,41 +16,34 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func PostHeader(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
-	theReader, _, err := ctx.Request.FormFile("file")
+func Header(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
+	var body io.Reader
+	var err error
+	if ctx.Request.Method == "POST" {
+		body, _, err = ctx.Request.FormFile("file")
+		if err != nil {
+			log.Error("[object.POST read multipart error:%s]", err.Error())
+			res.Error(errs.InternalError)
+			return nil, "", err
+		}
+	} else {
+		if ctx.Request.Body == nil {
+			log.Error("[object.PUT body is nil]")
+			res.Error(errs.FileEmpty)
+			return nil, "", errors.New("[reqest body nil]")
+		}
+		body = ctx.Request.Body
+		defer ctx.Request.Body.Close()
+	}
+
+	data, err := ioutil.ReadAll(body)
 	if err != nil {
-		log.Error("[object.POST read multipart error:%s]", err.Error())
+		log.Error("[Header:%s]", err.Error())
 		res.Error(errs.InternalError)
 		return nil, "", err
 	}
 
-	data, err := ioutil.ReadAll(theReader)
-	if err != nil {
-		log.Error("[PostHeader:%s]", err.Error())
-		res.Error(errs.InternalError)
-		return nil, "", err
-	}
-
-	key = computeKey(ctx, key, data)
-	return data, key, nil
-}
-
-func PutHeader(ctx *gin.Context, res *result.Result, bucket, key string) ([]byte, string, error) {
-	if ctx.Request.Body == nil {
-		log.Error("[object.PUT body is nil]")
-		res.Error(errs.FileEmpty)
-		return nil, "", errors.New("ReqBodyNil")
-	}
-
-	defer ctx.Request.Body.Close()
-	data, err := ioutil.ReadAll(ctx.Request.Body)
-	if err != nil {
-		log.Error("[PutHeader:%s]", err.Error())
-		res.Error(errs.InternalError)
-		return nil, "", err
-	}
-
-	key = computeKey(ctx, key, data)
+	//key = KeyMaker(ctx, key, data)
 	return data, key, nil
 }
 
@@ -81,7 +76,7 @@ func GetHeader(ctx *gin.Context, content []byte, res *result.Result) {
 	switch {
 	case len(ranges) == 1:
 		partRange := ranges[0]
-		//content = content[partRange.start : partRange.start+partRange.length]
+		content = content[partRange.Start : partRange.Start+partRange.Length]
 		sendlength := partRange.Length
 		ctx.Header(constant.ContentRange, partRange.ContentRange(sendlength))
 	}
@@ -94,6 +89,6 @@ func GetHeader(ctx *gin.Context, content []byte, res *result.Result) {
 	return
 }
 
-func computeKey(ctx *gin.Context, key string, data []byte) string {
+func KeyMaker(ctx *gin.Context, key string, data []byte) string {
 	return util.GetSha1Hex(data)
 }

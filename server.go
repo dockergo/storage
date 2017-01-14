@@ -14,14 +14,14 @@ type Server struct {
 	app   *app.App
 }
 
-func NewServer(cfg *config.Config) (*Server, error) {
+func New(cfg *config.Config) (*Server, error) {
 	var err error
 	s := new(Server)
 
 	s.engin = gin.New()
 	gin.SetMode(gin.ReleaseMode)
 
-	s.app, err = app.NewApp(cfg)
+	s.app, err = app.New(cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -32,14 +32,8 @@ func NewServer(cfg *config.Config) (*Server, error) {
 func (s *Server) Run() {
 	log.Info("[begin running gin....]")
 
-	s.prepare()
+	regRouters(s.app, s.engin)
 
 	log.Info("[start server at: %s]", tracker.Red(s.app.Config.HTTP.HTTPAddr))
 	s.engin.Run(s.app.Config.HTTP.HTTPAddr)
-}
-
-func (s *Server) prepare() {
-
-	RegisterURLs(s.app, s.engin)
-
 }
