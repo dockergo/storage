@@ -99,6 +99,84 @@
 			"revisionTime": "2016-04-20T13:07:02Z"
 		},
 		{
+			"checksumSHA1": "giG0cOEmGfdwV6zvmHy1K6RW+WM=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/aws",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "dqZuSRnu2QtUkso0XWYjxCYDyeU=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/aws/awserr",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "nlnzuWFWJzdPuY18TVw0Aoe9e7Y=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/aws/awsutil",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "o54KTjiW2X0fIwc91BPgY202Ch4=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/aws/credentials",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "sk9QMU/Ksip1iNHMJrz/YZJ+Rx4=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/apierr",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "uM5R0ENjb8Gz5eDpmaj0V/ZpMiM=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/endpoints",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "WiXmFeVLF38b0+E5ei1alGtmWcM=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/protocol/query",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "mPj9pz7E0GbIr0Kgo5zDzoS2by8=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/protocol/query/queryutil",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "hVeevCWKub75sYCZQF2f4RFOcYE=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/protocol/rest",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "P+dWVqJdOIgoNzUl2sMHXToB5co=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/protocol/restxml",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "EGO/WCIwYbUoQ8bvodOU5/nQxKw=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/protocol/xml/xmlutil",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "i+Yu8g3lbifUySR1JCBtQNn5MzM=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/internal/signer/v2",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
+			"checksumSHA1": "9UiHJWcihexa8i8Ei5AufoqzJrA=",
+			"path": "github.com/ks3sdklib/aws-sdk-go/service/s3",
+			"revision": "25fc4bfb79a25c5cd985383e9cb4a1028e2cea4f",
+			"revisionTime": "2015-07-20T09:25:14Z"
+		},
+		{
 			"checksumSHA1": "b0T0Hzd+zYk+OCDTFMps+jwa/nY=",
 			"path": "github.com/manucorporat/sse",
 			"revision": "ee05b128a739a0fb76c7ebd3ae4810c1de808d6d",
