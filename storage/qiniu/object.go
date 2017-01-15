@@ -141,6 +141,7 @@ func (c *Qiniu) GetObject(ctx *gin.Context) {
 		return
 	}
 
+	ctx.Header(constant.ContentLength, strconv.FormatInt(int64(ctx.Writer.Size()), 10))
 	ctx.Status(http.StatusOK)
 }
 
@@ -166,6 +167,20 @@ func (c *Qiniu) CopyObject(ctx *gin.Context) {
 	}
 
 	err := c.client.Bucket(bucket).Copy(nil, key, copykey)
+	if err != nil {
+		log.Error("[%s:%s]", c.Name, err.Error())
+		res.Error(err)
+		return
+	}
+	ctx.Status(http.StatusOK)
+}
+
+func (c *Qiniu) FetchObject(ctx *gin.Context) {
+	res, bucket, key := protocol.Param(ctx)
+	if len(bucket) == 0 || len(key) == 0 {
+		return
+	}
+	err := c.client.Bucket(bucket).Fetch(nil, key, "url")
 	if err != nil {
 		log.Error("[%s:%s]", c.Name, err.Error())
 		res.Error(err)

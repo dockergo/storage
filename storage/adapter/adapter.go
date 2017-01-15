@@ -14,6 +14,7 @@ type Objecter interface {
 	DeleteObject(ctx *gin.Context)
 	MoveObject(ctx *gin.Context)
 	CopyObject(ctx *gin.Context)
+	FetchObject(ctx *gin.Context)
 	OptionsObject(ctx *gin.Context)
 }
 

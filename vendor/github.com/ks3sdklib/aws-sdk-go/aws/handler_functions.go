@@ -57,9 +57,9 @@ func BuildContentLength(r *Request) {
 func UserAgentHandler(r *Request) {
 	r.HTTPRequest.Header.Set("User-Agent", SDKName+"/"+SDKVersion)
 }
-func ContentTypeHandler(r *Request){
-	if len(r.HTTPRequest.Header["Content-Type"])==0{
-		r.HTTPRequest.Header.Set("Content-Type","application/xml")
+func ContentTypeHandler(r *Request) {
+	if len(r.HTTPRequest.Header["Content-Type"]) == 0 {
+		r.HTTPRequest.Header.Set("Content-Type", "application/xml")
 	}
 }
 

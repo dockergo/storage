@@ -44,6 +44,11 @@ func (s *StorageAdapter) CopyObject(ctx *gin.Context) {
 	util.Details()
 }
 
+func (s *StorageAdapter) FetchObject(ctx *gin.Context) {
+	log.Warn("[%s FetchObject NotImplemented]", s.Name)
+	util.Details()
+}
+
 func (s *StorageAdapter) OptionsObject(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"Supported": "GET,PUT,POST,HEAD,DELETE,OPTIONS"})
 	ctx.Status(http.StatusOK)

@@ -34,8 +34,5 @@ func (c *Qiniu) GetBucket(ctx *gin.Context) {
 			constant.MimeType:     item.MimeType})
 
 	}
-}
-
-func (c *Qiniu) HeadBucket(ctx *gin.Context) {
-
+	ctx.Status(http.StatusOK)
 }
