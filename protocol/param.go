@@ -27,7 +27,9 @@ func Param(ctx *gin.Context) (*result.Result, string, string) {
 		key = ctx.Param("key")
 	}
 
-	key = key[1:len(key)]
+	if key != "" {
+		key = key[1:len(key)]
+	}
 
 	if len(bucket) < 3 || len(bucket) > 63 {
 		log.Error("[%s/%s]", bucket, key)

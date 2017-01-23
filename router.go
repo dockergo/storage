@@ -7,20 +7,16 @@ import (
 )
 
 func regRouters(app *app.App, router *gin.Engine) {
-
 	router.Use(middleware.RequestId())
-	router.Use(middleware.Csrf())
 	router.Use(gin.Recovery())
 	router.Use(gin.Logger())
 	router.Use(middleware.Cors())
 	router.Use(middleware.Sessions())
+	router.Use(middleware.Csrf())
 
 	greenGroup(app, router)
-
 	bucketGroup(app, router)
-
 	objectGroup(app, router)
-
 	serviceGroup(app, router)
 }
 
