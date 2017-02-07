@@ -53,9 +53,6 @@ func objectGroup(app *app.App, router *gin.Engine) {
 func serviceGroup(app *app.App, router *gin.Engine) {
 	service := router.Group("/")
 	service.Use(middleware.Authority(app.Config.Credential))
-
-	{
-		service.GET("", app.ListBuckets)
-	}
+	service.GET("", app.ListBuckets)
 
 }
