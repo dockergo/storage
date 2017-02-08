@@ -47,4 +47,4 @@
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
 * [__s3__](http://docs.s3.com/docs/master/)
 
-<font color="Black"><h4 align = "center">©2016 flyaways</h4></font>
+<font color="Black"><h4 align = "center">©2017 flyaways</h4></font>
