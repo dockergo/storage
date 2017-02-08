@@ -1,5 +1,5 @@
 # Storage
-
+## The sotage agent provide object storage api just looklike s3. 
 ><font color="Black">Supported Type: </font>&nbsp;
  __<font color="Green">
  	s3
