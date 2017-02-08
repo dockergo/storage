@@ -2,12 +2,11 @@
 
 ><font color="Black">Supported Type: </font>&nbsp;
  __<font color="Green">
- 	S3
-	SWIFT
-	KDFS
-	POSIX
-	OSS
-        QINIU
+ 	s3
+	siwft
+	posix
+	oss
+        qiniu
     </font>__
 
 ## __<font color="Crimson">1. Build workspace</font>__
