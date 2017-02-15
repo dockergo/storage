@@ -1,8 +1,12 @@
 FROM alpine:3.5
 MAINTAINER flyaways<meagleglass@gmail.com>
 
-ADD ./go /go
-COPY ./bin/agent /go
+RUN mkdir -p /go/resources
+
+ADD ./go/* ./bin/agent /go
+
+ADD ./go/resources /go/resources
+
 RUN chmod +x /go/start.sh /go/agent
 
 EXPOSE 8080

@@ -1,5 +1,5 @@
 [http]
-http_addr = ":20808"
+http_addr = ":8080"
 scheme = "http"
 
 [logs]
