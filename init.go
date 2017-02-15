@@ -131,10 +131,10 @@ func objectPost(app *app.App, router *gin.Engine, curfile, bucketName string) {
 	w.Close()
 
 	httpReq, _ := http.NewRequest("POST", urlStr, &buffer)
-	rr := httptest.NewRecorder()
 	httpReq.Header.Add("Content-Type", w.FormDataContentType())
 	httpReq.Header.Set("x-kss-newfilename-in-body", "true")
 
+	rr := httptest.NewRecorder()
 	router.ServeHTTP(rr, httpReq)
 
 	if rr.Code == http.StatusOK {
@@ -143,28 +143,7 @@ func objectPost(app *app.App, router *gin.Engine, curfile, bucketName string) {
 
 }
 
-func initStorage(app *app.App, router *gin.Engine) {
-	urlStr := fmt.Sprintf("/%s", "bucketName")
-	httpReq, _ := http.NewRequest("PUT", urlStr, nil)
-	rr := httptest.NewRecorder()
-	expiresTime := GetDate()
-	contentType := "application/octet-stream"
-	httpReq.Header.Add("Content-Type", contentType)
-	httpReq.Header.Add("date", expiresTime)
-
-	sign := DoSignature("PUT",
-		"",
-		contentType,
-		expiresTime,
-		"/"+"bucketName"+"/"+"upkey", app.Config.Credential.SecretKey, map[string]string{})
-
-	autoString := fmt.Sprintf("KSS %s:%s", app.Config.Credential.AccessKey, sign)
-	httpReq.Header["authorization"] = []string{autoString}
-	router.ServeHTTP(rr, httpReq)
-	if rr.Code == http.StatusOK {
-		log.Error("Success: %s", "curfile")
-	}
-
+func initObject(app *app.App, router *gin.Engine) {
 	files, err := walkDir("../initdir", "*")
 	if err != nil {
 		log.Error("walkDir error: %s", err.Error())
@@ -172,5 +151,27 @@ func initStorage(app *app.App, router *gin.Engine) {
 
 	for _, curfile := range files {
 		objectPost(app, router, curfile, "bucketName")
+	}
+}
+
+func initBucket(app *app.App, router *gin.Engine) {
+	urlStr := fmt.Sprintf("/%s", "bucketName")
+	expiresTime := GetDate()
+	sign := DoSignature("PUT",
+		"",
+		"",
+		expiresTime,
+		"/"+"bucketName", app.Config.Credential.SecretKey, map[string]string{})
+	autoString := fmt.Sprintf("KSS %s:%s", app.Config.Credential.AccessKey, sign)
+
+	httpReq, _ := http.NewRequest("PUT", urlStr, nil)
+	httpReq.Header.Add("date", expiresTime)
+	httpReq.Header["authorization"] = []string{autoString}
+
+	rr := httptest.NewRecorder()
+	router.ServeHTTP(rr, httpReq)
+
+	if rr.Code == http.StatusOK {
+		log.Error("Success: %s", "curfile")
 	}
 }
