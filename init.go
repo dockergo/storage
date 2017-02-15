@@ -144,7 +144,7 @@ func objectPost(app *app.App, router *gin.Engine, curfile, bucketName string) {
 }
 
 func initObject(app *app.App, router *gin.Engine) {
-	files, err := walkDir("../resources", "*")
+	files, err := walkDir("resources", "*")
 	if err != nil {
 		log.Error("[walkdir error: %s]", err.Error())
 	}

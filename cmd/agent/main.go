@@ -9,7 +9,7 @@ import (
 	"github.com/flyaways/storage/config"
 )
 
-var configFile = flag.String("config", "storage.toml", "storage config file")
+var configFile = flag.String("config", "etc/storage.toml", "storage config file")
 
 func main() {
 
