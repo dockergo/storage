@@ -138,15 +138,15 @@ func objectPost(app *app.App, router *gin.Engine, curfile, bucketName string) {
 	router.ServeHTTP(rr, httpReq)
 
 	if rr.Code == http.StatusOK {
-		log.Error("Success: %s", curfile)
+		log.Error("[Object POST: %s %s]", curfile, "http.StatusOK")
 	}
 
 }
 
 func initObject(app *app.App, router *gin.Engine) {
-	files, err := walkDir("../initdir", "*")
+	files, err := walkDir("/go/resources", "*")
 	if err != nil {
-		log.Error("walkDir error: %s", err.Error())
+		log.Error("[walkdir error: %s]", err.Error())
 	}
 
 	for _, curfile := range files {
@@ -172,6 +172,6 @@ func initBucket(app *app.App, router *gin.Engine) {
 	router.ServeHTTP(rr, httpReq)
 
 	if rr.Code == http.StatusOK {
-		log.Error("Success: %s", "curfile")
+		log.Error("[Bucket PUT: %s %s]", "bucketName", "http.StatusOK")
 	}
 }
