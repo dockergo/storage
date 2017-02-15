@@ -5,7 +5,7 @@ RUN mkdir -p /go/resources
 
 ADD ./go/* ./bin/agent /go
 
-ADD ./go/resources /go/resources
+ADD ./go/resources/* /go/resources
 
 RUN chmod +x /go/start.sh /go/agent
 
