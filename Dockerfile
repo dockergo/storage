@@ -11,4 +11,5 @@ RUN chmod +x /go/start.sh /go/agent
 
 EXPOSE 8080
 
+WORKDIR /go
 ENTRYPOINT ["/go/start.sh"]
