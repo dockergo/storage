@@ -1,5 +1,5 @@
 [http]
-http_addr = ":8080"
+http_addr = ":20808"
 scheme = "http"
 
 [logs]
@@ -27,9 +27,13 @@ password="12345"
 #accesskey = "lMQTr0hNlMpB0iOk/i+x"
 #secretkey = "D4CsYLs75JcWEjbiI22zR3P7kJ/+5B1qdEje7A7I"
 
+#addr = "http://192.168.11.139:80"
+#accesskey = "BMNW5JUYO889ZDZYA8GH"
+#secretkey = "Pb4BZGgQD1hV7UE1V0qf85f3YNSltizHVntdLyyn"
+
 addr = "http://192.168.20.4:8888"
-accesskey = "CUPQ9OHNSEQ6KYDLYNK2"
-secretkey = "jmgkfRgE2IkgKH9gmOoboOanID7SNHQ2yNRHw6GF"
+accesskey = "ZAZW0PO781UDXLA4HGC7"
+secretkey = "ORBLBg0P6kdObZ6uudMDEWuiTUPNKMwArNyHWRNu"
 
 [storage.oss]
 addr = "oss-cn-beijing.aliyuncs.com"
