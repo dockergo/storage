@@ -12,7 +12,7 @@ var secretKey = flag.String("secKey", "2IDjaPOpFfkq5Zf9K4tKu8k5AKApY8S8eKV1zsRl"
 
 var Types = flag.String("typ", "service", "service")
 var Method = flag.String("method", "GET", "GET,POST,PUT,HEAD,DELETE,OPTIONS")
-var addr = flag.String("addr", "127.0.0.1:20808", "addr")
+var addr = flag.String("addr", "127.0.0.1:8080", "addr")
 
 var content = flag.String("ctx", "Stand on the shoulders of giants", "PUT method content")
 var curfile = flag.String("curf", "curfile", "current file name")

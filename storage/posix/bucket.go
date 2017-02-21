@@ -31,7 +31,7 @@ func (posix *Posix) GetBucket(ctx *gin.Context) {
 	if err != nil {
 		res.Error(errors.NoSuchBucket)
 	}
-	lens := len(posix.Config.Storage.Posix.Addr) + len(bucket) + 2
+	lens := len(posix.Config.Storage.Posix.Addr) + len(bucket)
 	for index, key := range keys {
 		ctx.JSON(http.StatusOK, gin.H{"Key": filenames[index][lens:len(filenames[index])],
 			constant.LastModified: key.ModTime().Format(constant.TimeFormat),

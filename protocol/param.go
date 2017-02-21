@@ -25,10 +25,9 @@ func Param(ctx *gin.Context) (*result.Result, string, string) {
 		}
 	} else {
 		key = ctx.Param("key")
-	}
-
-	if key != "" {
-		key = key[1:len(key)]
+		if key != "" {
+			key = key[1:len(key)]
+		}
 	}
 
 	if len(bucket) < 3 || len(bucket) > 63 {
