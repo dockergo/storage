@@ -23,7 +23,7 @@ func New(cfg *config.Config) (*App, error) {
 	app.Config = cfg
 	app.Storager, err = storage.New(cfg)
 	if err != nil {
-		log.Error("[New Storage:%s]", tracker.Red(err.Error()))
+		log.Error(tracker.Red("[new storage:%s]", err.Error()))
 		return nil, err
 	}
 

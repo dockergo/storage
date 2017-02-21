@@ -1,5 +1,5 @@
 [http]
-http_addr = ":20808"
+http_addr = ":8080"
 scheme = "http"
 
 [logs]
@@ -12,7 +12,7 @@ accesskey = "1GL02rRYQxK8s7FQh8dV"
 secketkey = "2IDjaPOpFfkq5Zf9K4tKu8k5AKApY8S8eKV1zsRl"
 
 [storage]
-type = "s3"
+type = "posix"
 
 [storage.swift]
 addr = "http://192.168.20.6/v1"
@@ -31,7 +31,7 @@ password="12345"
 #accesskey = "BMNW5JUYO889ZDZYA8GH"
 #secretkey = "Pb4BZGgQD1hV7UE1V0qf85f3YNSltizHVntdLyyn"
 
-addr = "http://192.168.20.4:8888"
+addr = "http://192.168.20.3:8888"
 accesskey = "ZAZW0PO781UDXLA4HGC7"
 secretkey = "ORBLBg0P6kdObZ6uudMDEWuiTUPNKMwArNyHWRNu"
 
@@ -46,4 +46,4 @@ accesskey = "XXyour accesskeyXX"
 secretkey = "XXyour secretkeyXX"
 
 [storage.posix]
-addr = "/tmp/posix"
+addr = "./bin"

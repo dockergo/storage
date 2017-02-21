@@ -25,7 +25,7 @@ const (
 )
 
 func New(config *config.Config) (adapter.Storager, error) {
-	log.Info("[storage-type:%s]", tracker.Yellow(config.Storage.Type))
+	log.Info(tracker.Blue("[storage-type:%s]", config.Storage.Type))
 	switch strings.ToLower(config.Storage.Type) {
 	case SWIFT:
 		return swift.New(config), nil

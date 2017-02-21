@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/flyaways/storage/errors"
-	"github.com/flyaways/storage/protocol"
+	"github.com/flyaways/storage/result"
 	"github.com/flyaways/storage/util/log"
 	"github.com/gin-gonic/gin"
 )
@@ -22,8 +22,8 @@ func walkDirs(path string) (buckets []string, err error) {
 }
 
 func (posix *Posix) ListBuckets(ctx *gin.Context) {
-	res, bucket, _ := protocol.Param(ctx)
-	if err := posix.DirChecker(posix.getBucketPath(bucket)); err != nil {
+	res := result.NewResult(ctx)
+	if err := posix.DirChecker(posix.getBucketPath("")); err != nil {
 		res.Error(errors.NoSuchBucket)
 		ctx.Status(http.StatusNotFound)
 		return
