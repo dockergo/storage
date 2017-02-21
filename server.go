@@ -30,12 +30,14 @@ func New(cfg *config.Config) (*Server, error) {
 }
 
 func (s *Server) Run() {
-	log.Info("[begin running gin....]")
+	log.Info(tracker.Blue("[begin running gin....]"))
 
 	regRouters(s.app, s.engin)
 	initBucket(s.app, s.engin)
 	initObject(s.app, s.engin)
 
-	log.Info("[start server at: %s]", tracker.Red(s.app.Config.HTTP.HTTPAddr))
+	log.Info(tracker.Blue("[init storage over]"))
+
+	log.Info(tracker.Blue("[start server at %s]", s.app.Config.HTTP.HTTPAddr))
 	s.engin.Run(s.app.Config.HTTP.HTTPAddr)
 }

@@ -17,7 +17,6 @@ import (
 
 	"github.com/flyaways/storage/app"
 	"github.com/flyaways/storage/util/log"
-	"github.com/flyaways/tracker"
 	"github.com/gin-gonic/gin"
 )
 
@@ -90,9 +89,6 @@ func DoSignature(HTTPVerb, ContentMD5, ContentType, Date, CanonicalizedResource,
 	h := hmac.New(sha1.New, []byte(secretKey))
 	h.Write([]byte(stringToSign))
 	sign := base64.StdEncoding.EncodeToString(h.Sum(nil))
-
-	fmt.Printf("[%40s:\t%-50s]\n", tracker.Blue("signature"), tracker.Yellow(string(sign)))
-
 	return sign
 }
 
@@ -136,11 +132,6 @@ func objectPost(app *app.App, router *gin.Engine, curfile, bucketName string) {
 
 	rr := httptest.NewRecorder()
 	router.ServeHTTP(rr, httpReq)
-
-	if rr.Code == http.StatusOK {
-		log.Error("[Object POST: %s %s]", curfile, "http.StatusOK")
-	}
-
 }
 
 func initObject(app *app.App, router *gin.Engine) {
@@ -170,8 +161,4 @@ func initBucket(app *app.App, router *gin.Engine) {
 
 	rr := httptest.NewRecorder()
 	router.ServeHTTP(rr, httpReq)
-
-	if rr.Code == http.StatusOK {
-		log.Error("[Bucket PUT: %s %s]", "bucketName", "http.StatusOK")
-	}
 }
