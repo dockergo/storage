@@ -32,14 +32,15 @@
 
 ## __<font color="Black">4. Testing</font>__
 
-**<font color=red>Parameters List</font>**
+**<font color=Black>Parameters List</font>**
 
+**<font color=Green>
 |Type|PUT|POST|GET|HEAD|DELETE|
 |---|---|---|---|---|---|
 |Bucket|✔|✔|✔|✔|✔||
 |Object|✔|✔|✔|✔|✔||
 |Service|✔|✖|✖|✖|✖||
-
+</font>**
 ## __<font color="Black">5. References</font>__
 
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
