@@ -3,13 +3,7 @@
 ## **<font color=Black>The sotage agent provide object storage api just looklike s3</font>**
 
 ><font color="Green">Supported Type: </font>&nbsp;
- __<font color="Green">
- 	s3
-	siwft
-	posix
-	oss
-	qiniu
-    </font>__
+<font color="Green">s3 siwft posix oss qiniu</font>
 
 ## __<font color="Black">1. Build workspace</font>__
 
@@ -32,15 +26,14 @@
 
 ## __<font color="Black">4. Testing</font>__
 
-**<font color=Black>Parameters List</font>**
+**<font color=Green>Parameters List</font>**
 
-**<font color=Green>
 |Type|PUT|POST|GET|HEAD|DELETE|
 |---|---|---|---|---|---|
 |Bucket|✔|✔|✔|✔|✔||
 |Object|✔|✔|✔|✔|✔||
 |Service|✔|✖|✖|✖|✖||
-</font>**
+
 ## __<font color="Black">5. References</font>__
 
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
