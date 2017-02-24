@@ -19,7 +19,7 @@
 
 ```sh
  $cd storage
- make
+ $make
 ```
 
 ## __<font color="Black">3. Run</font>__
