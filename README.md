@@ -1,6 +1,6 @@
 # Storage
 ## The sotage agent provide object storage api just looklike s3
-><font color="Black">Supported Type: </font>&nbsp;
+><font color="Green">Supported Type: </font>&nbsp;
  __<font color="Green">
  	s3
 	siwft
@@ -32,13 +32,13 @@
 
 ## __<font color="Chocolate">4. Test all of storage interface</font>__
 
-><font color="Black">Bucket Method:</font>&nbsp;
+><font color="Green">Bucket Method:</font>&nbsp;
  __<font color="Green">PUT,GET, HEAD, DELETE,etc</font>__
 
-><font color="Black">Object Method:</font>&nbsp;
+><font color="Green">Object Method:</font>&nbsp;
  __<font color="Green">PUT, GET, HEAD, DELETE,etc</font>__
 
-><font color="Black">Service Method:</font>&nbsp;
+><font color="Green">Service Method:</font>&nbsp;
  __<font color="Green">GET</font>__
 
 
@@ -47,4 +47,4 @@
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
 * [__s3__](http://docs.s3.com/docs/master/)
 
-<font color="Black"><h4 align = "center">©2017 flyaways</h4></font>
+<font color="Green"><h4 align = "center">©2017 flyaways</h4></font>
