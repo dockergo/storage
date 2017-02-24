@@ -6,28 +6,26 @@
 	siwft
 	posix
 	oss
-        qiniu
+	qiniu
     </font>__
 
 ## __<font color="Black">1. Build workspace</font>__
 
 ```sh
- mkdir -p $GOPATH/src/github.com/flyaways
- cd $GOPATH/src/github.com/flyaways
- git clone  https://github.com/flyaways/storage.git
+ $go get github.com/flyaways/storage
 ```
 
 ## __<font color="Black">2. Build</font>__
 
 ```sh
- cd storage
+ $cd storage
  make
 ```
 
 ## __<font color="Black">3. Run</font>__
 
 ```sh
- ./docker/bin/storage -config=storage.toml
+ $./bin/agent -config=./etc/storage.toml
 ```
 
 ## __<font color="Black">4. Test all of storage interface</font>__
