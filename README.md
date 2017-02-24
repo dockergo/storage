@@ -1,4 +1,4 @@
-# ** Storage **
+# **Storage**
 
 ## The sotage agent provide object storage api just looklike s3
 
