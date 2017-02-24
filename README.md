@@ -2,8 +2,7 @@
 
 ## **<font color=Black>The sotage agent provide object storage api just looklike s3</font>**
 
-><font color="Green">Supported Type: </font>&nbsp;
-<font color="Green">s3 siwft posix oss qiniu</font>
+><font color="Green">Supported: s3 siwft posix oss qiniu</font>
 
 ## __<font color="Black">1. Build workspace</font>__
 
