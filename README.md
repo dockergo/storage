@@ -1,6 +1,6 @@
-# **<font color=Black>Storage</font>**
+# ** Storage **
 
-## **<font color=Black>The sotage agent provide object storage api just looklike s3</font>**
+## The sotage agent provide object storage api just looklike s3
 
 ><font color="Green">Supported: s3 siwft posix oss qiniu</font>
 
