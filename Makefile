@@ -1,22 +1,21 @@
-export GOBIN=${PWD}/bin
-GO=go
-GOFMT=gofmt
 
+export GOBIN=${PWD}/bin
 
 all: build
 
 build:
-	$GOFMT -w . && $GO install  ./... 
+	gofmt -w . && go install  ./... 
 
 clean:
-	$GO clean -i ./...
+	go clean -i ./...
 
 test:
-	$GO test -race ./...
+	go test -race ./...
 
 .PHONY: storage
+
 storage:
-	$GO install -a github.com/flyaways/storage/cmd/agent
+	go install -a github.com/flyaways/storage/cmd/agent
 
 
 
