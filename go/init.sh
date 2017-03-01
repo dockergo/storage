@@ -14,8 +14,6 @@ sed -i "s,LOGS_LEVEL,$LOGS_LEVEL,g" $conf
 
 sed -i "s,STORAGE_TYPE,$STORAGE_TYPE,g" $conf
 
-sed -i "s,POSIX_PATH,$POSIX_PATH,g" $conf
-
 sed -i "s,S3_ACCESSKEY,$S3_ACCESSKEY,g" $conf
 sed -i "s,S3_SECRETKEY,$S3_SECRETKEY,g" $conf
 sed -i "s,S3_ADDR,$S3_ADDR,g" $conf
