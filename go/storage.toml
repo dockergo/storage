@@ -38,4 +38,4 @@ accesskey = "QINIU_ACCESSKEY"
 secretkey = "QINIU_SECRETKEY"
 
 [storage.posix]
-addr = "POSIX_PATH"
+addr = "/go/data"
