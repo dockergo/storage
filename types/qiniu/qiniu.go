@@ -2,7 +2,7 @@ package qiniu
 
 import (
 	"github.com/flyaways/storage/config"
-	"github.com/flyaways/storage/storage/adapter"
+	"github.com/flyaways/storage/types/adapter"
 
 	"qiniupkg.com/api.v7/conf"
 	"qiniupkg.com/api.v7/kodo"

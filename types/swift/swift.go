@@ -18,7 +18,7 @@ import (
 	"github.com/flyaways/storage/config"
 	errs "github.com/flyaways/storage/errors"
 	"github.com/flyaways/storage/result"
-	"github.com/flyaways/storage/storage/adapter"
+	"github.com/flyaways/storage/types/adapter"
 	"github.com/flyaways/storage/util/log"
 )
 
