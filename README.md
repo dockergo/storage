@@ -3,6 +3,8 @@
 ### The sotage agent provide object storage api just look like s3.
 ### Supported: s3 siwft posix oss qiniu
 
+![agent](agent.png)
+
 # **Local Run**
 
 ## __<font color="Black">1. Build workspace</font>__
@@ -59,9 +61,9 @@
 
 |Type|PUT|POST|GET|HEAD|DELETE|
 |---|---|---|---|---|---|
-|Bucket|✔|✔|✔|✔|✔||
-|Object|✔|✔|✔|✔|✔||
-|Service|✔|✖|✖|✖|✖||
+|**Bucket**|✔|✔|✔|✔|✔||
+|**Object**|✔|✔|✔|✔|✔||
+|**Service**|✔|✖|✖|✖|✖||
 
 ## **References**
 
