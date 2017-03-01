@@ -1,10 +1,10 @@
 #!/bin/sh
 
-initlock="/go/init.lock"
-conf=/go/storage.toml
+initlock="/flyaways/init.lock"
+conf=/flyaways/storage.toml
 
 if [ ! -f "$initlock" ]; then
-	sh /go/init.sh
+	sh /flyaways/init.sh
 fi
 
-/go/agent -config=$conf
+/flyaways/agent -config=$conf

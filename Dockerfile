@@ -1,15 +1,15 @@
 FROM alpine:3.5
 MAINTAINER flyaways<meagleglass@gmail.com>
 
-RUN mkdir -p /go/resources
+RUN mkdir -p /flyaways/resources /flyaways/data
 
-ADD ./go/* ./bin/agent /go
+ADD ./go/* ./bin/agent /flyaways
 
-ADD ./go/resources/* /go/resources
+ADD ./go/resources/* /flyaways/resources
 
-RUN chmod +x /go/start.sh /go/agent
+RUN chmod +x /flyaways/start.sh /flyaways/agent
 
 EXPOSE 8080
 
-WORKDIR /go
-ENTRYPOINT ["/go/entrypoint.sh"]
+WORKDIR /flyaways
+ENTRYPOINT ["/flyaways/entrypoint.sh"]
