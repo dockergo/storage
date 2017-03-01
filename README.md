@@ -3,7 +3,7 @@
 ### The sotage agent provide object storage api just look like s3.
 ### Supported: s3 siwft posix oss qiniu
 
-## **local run**
+# **Local Run**
 
 ## __<font color="Black">1. Build workspace</font>__
 
@@ -24,7 +24,7 @@
  $ ./bin/agent -config=./etc/storage.toml
 ```
 
-## **docker run**
+## **Docker Run**
 
 ## __<font color="Black">1. Build workspace</font>__
 
