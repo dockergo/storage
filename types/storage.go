@@ -1,4 +1,4 @@
-package storage
+package types
 
 import (
 	"fmt"
@@ -7,12 +7,12 @@ import (
 	"github.com/flyaways/tracker"
 
 	"github.com/flyaways/storage/config"
-	"github.com/flyaways/storage/storage/adapter"
-	"github.com/flyaways/storage/storage/oss"
-	"github.com/flyaways/storage/storage/posix"
-	"github.com/flyaways/storage/storage/qiniu"
-	"github.com/flyaways/storage/storage/s3"
-	"github.com/flyaways/storage/storage/swift"
+	"github.com/flyaways/storage/types/adapter"
+	"github.com/flyaways/storage/types/oss"
+	"github.com/flyaways/storage/types/posix"
+	"github.com/flyaways/storage/types/qiniu"
+	"github.com/flyaways/storage/types/s3"
+	"github.com/flyaways/storage/types/swift"
 	"github.com/flyaways/storage/util/log"
 )
 

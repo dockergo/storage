@@ -3,7 +3,7 @@ package s3
 import (
 	"github.com/flyaways/storage/config"
 
-	"github.com/flyaways/storage/storage/adapter"
+	"github.com/flyaways/storage/types/adapter"
 	"github.com/mitchellh/goamz/aws"
 	"github.com/mitchellh/goamz/s3"
 )

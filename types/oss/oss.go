@@ -3,7 +3,7 @@ package oss
 import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/flyaways/storage/config"
-	"github.com/flyaways/storage/storage/adapter"
+	"github.com/flyaways/storage/types/adapter"
 	"github.com/flyaways/storage/util/log"
 )
 
