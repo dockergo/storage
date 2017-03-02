@@ -1,7 +1,9 @@
-# **Storage**
+# **Storage Agent**
 
 ### The sotage agent provide object storage api just look like s3.
 ### Supported: s3 siwft posix oss qiniu
+
+### **<a href="https://flyaways1.gitbooks.io/storage/content/">Storage Agent document</a>**
 
 ![agent](agent.png)
 
