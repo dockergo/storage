@@ -1,4 +1,5 @@
-export GOBIN=${PWD}/docker/bin
+
+export GOBIN=${PWD}/bin
 
 all: build
 
@@ -11,10 +12,10 @@ clean:
 test:
 	go test -race ./...
 
-
 .PHONY: storage
+
 storage:
-	go install -a github.com/flyaways/storage/cmd/storage
+	go install -a github.com/flyaways/storage/cmd/agent
 
 
 

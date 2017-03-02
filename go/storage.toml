@@ -1,0 +1,41 @@
+[http]
+http_addr = "HTTP_ADDR"
+scheme = "HTTP_SCHEME"
+
+[logs]
+access_log = LOGS_ACCESS
+path = "LOGS_PATH"
+level = "LOGS_LEVEL"
+
+[credential]
+accesskey = "CREDENTIAL_ACCESSKEY"
+secketkey = "CREDENTIAL_SECRETKEY"
+
+[storage]
+type = "STORAGE_TYPE"
+
+[storage.swift]
+addr = "SWIFT_ADDR"
+authurl="SWIFT_AUTHURL"
+tenantname="SWIFT_TENANTNAME"
+username="SWIFT_USERNAME"
+projname="SWIFT_PROJNAME"
+password="SWIFT_PASSWORD"
+
+[storage.s3]
+addr = "S3_ADDR"
+accesskey = "S3_ACCESSKEY"
+secretkey = "S3_SECRETKEY"
+
+[storage.oss]
+addr = "OSS_ADDR"
+accesskey = "OSS_ACCESSKEY"
+secretkey = "OSS_SECRETKEY"
+
+[storage.qiniu]
+addr = "QINIU_ADDR"
+accesskey = "QINIU_ACCESSKEY"
+secretkey = "QINIU_SECRETKEY"
+
+[storage.posix]
+addr = "/flyaways/data"

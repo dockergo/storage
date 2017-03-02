@@ -1,51 +1,75 @@
-# Storage
+# **Storage Agent**
 
-><font color="Black">Supported Type: </font>&nbsp;
- __<font color="Green">
- 	S3
-	SWIFT
-	KDFS
-	POSIX
-	OSS
-        QINIU
-    </font>__
+### The sotage agent provide object storage api just look like s3.
+### Supported: s3 siwft posix oss qiniu
 
-## __<font color="Crimson">1. Build workspace</font>__
+### **<a href="https://flyaways1.gitbooks.io/storage/content/">Storage Agent document</a>**
 
-```sh
- mkdir -p $GOPATH/src/github.com/flyaways
- cd $GOPATH/src/github.com/flyaways
- git clone  https://github.com/flyaways/storage.git
-```
+![agent](agent.png)
 
-## __<font color="LightSkyBlue">2. Build</font>__
+# **Local Run**
+
+## __<font color="Black">1. Build workspace</font>__
 
 ```sh
- cd storage
- make
+ $ go get github.com/flyaways/storage
 ```
 
-## __<font color="LawnGreen">3. Run</font>__
+## __<font color="Black">2. Build</font>__
 
 ```sh
- ./docker/bin/storage -config=storage.toml
+ $ cd storage
+ $ make
 ```
 
-## __<font color="Chocolate">4. Test all of storage interface</font>__
+## __<font color="Black">3. Run</font>__
 
-><font color="Black">Bucket Method:</font>&nbsp;
- __<font color="Green">PUT,GET, HEAD, DELETE</font>__
+```sh
+ $ ./bin/agent -config=./etc/storage.toml
+```
 
-><font color="Black">Object Method:</font>&nbsp;
- __<font color="Green">PUT, GET, HEAD, DELETE</font>__
+# **Docker Run**
 
-><font color="Black">Service Method:</font>&nbsp;
- __<font color="Green">GET</font>__
+## __<font color="Black">1. Build workspace</font>__
 
+```sh
+ $ go get github.com/flyaways/storage
+```
 
-## __<font color="VioletRed">5. References</font>__
+## __<font color="Black">2. Build</font>__
+
+```sh
+ $ cd storage
+ $ ./build.sh
+```
+
+## __<font color="Black">3. Run</font>__
+
+```sh
+ $ docker run -d --restart=always \
+ $       -p 8080:8080 \
+ $       -e STORAGE_TYPE=s3 \
+ $       -e HTTP_SCHEME=http \
+ $       -e S3_ADDR=192.168.20.4 \
+ $       -e S3_ADDR_PORT=8888 \
+ $       -e S3_ACCESSKEY=ZAZW0PO781UDXLA4HGC7 \
+ $       -e S3_SECRETKEY=ORBLBg0P6kdObZ6uudMDEWuiTUPNKMwArNyHWRNu \
+ $       agent:latest
+```
+
+# **Interface**
+
+### Method Lists
+
+|Type|PUT|POST|GET|HEAD|DELETE|
+|---|---|---|---|---|---|
+|**Bucket**|✔|✔|✔|✔|✔||
+|**Object**|✔|✔|✔|✔|✔||
+|**Service**|✔|✖|✖|✖|✖||
+
+## **References**
 
 * [__Swift__](http://developer.openstack.org/api-ref/object-storage/)
 * [__s3__](http://docs.s3.com/docs/master/)
 
-<font color="Black"><h4 align = "center">©2016 flyaways</h4></font>
+<font color="Green"><h4 align = "center">©2017 flyaways</h4></font>
